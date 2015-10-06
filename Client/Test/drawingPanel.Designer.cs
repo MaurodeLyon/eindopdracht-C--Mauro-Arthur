@@ -1,6 +1,6 @@
-﻿namespace Client
+﻿namespace Test
 {
-    partial class Form1
+    partial class drawingPanel
     {
         /// <summary>
         /// Required designer variable.
@@ -28,20 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.panel1 = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
-            // Form1
+            // panel1
+            // 
+            this.panel1.Location = new System.Drawing.Point(12, 12);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1041, 492);
+            this.panel1.TabIndex = 0;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
+            // drawingPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1101, 536);
-            this.Name = "Form1";
+            this.ClientSize = new System.Drawing.Size(1065, 516);
+            this.Controls.Add(this.panel1);
+            this.Name = "drawingPanel";
             this.Text = "Form1";
             this.ResumeLayout(false);
 
         }
 
         #endregion
+
+        public System.Windows.Forms.Panel panel1;
     }
 }
 
