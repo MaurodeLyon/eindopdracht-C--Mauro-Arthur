@@ -17,6 +17,7 @@ namespace Test
         public drawingPanel()
         {
             InitializeComponent();
+            
             test = new Test(this);
         }
 
@@ -33,8 +34,6 @@ namespace Test
                     y += 20;
                     test.ellipse = new Rectangle(x,y,10,10);
                     panel1.Update();
-                    Console.WriteLine("HELLO");
-                    Console.Read();
                     break;
                 case Keys.Down:
                     y -= 20;
