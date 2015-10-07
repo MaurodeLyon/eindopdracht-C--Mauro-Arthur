@@ -54,7 +54,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Test.cs" />
+    <Compile Include="Model.cs" />
     <EmbeddedResource Include="drawingPanel.resx">
       <DependentUpon>drawingPanel.cs</DependentUpon>
     </EmbeddedResource>

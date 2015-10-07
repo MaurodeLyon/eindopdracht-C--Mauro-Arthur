@@ -28,32 +28,45 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.components = new System.ComponentModel.Container();
+            this.field = new System.Windows.Forms.Panel();
+            this.ViewTimer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
-            // panel1
+            // field
             // 
-            this.panel1.Location = new System.Drawing.Point(12, 12);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1041, 492);
-            this.panel1.TabIndex = 0;
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            this.field.AutoScroll = true;
+            this.field.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.field.Location = new System.Drawing.Point(0, 0);
+            this.field.Margin = new System.Windows.Forms.Padding(2);
+            this.field.Name = "field";
+            this.field.Size = new System.Drawing.Size(799, 419);
+            this.field.TabIndex = 0;
+            this.field.Paint += new System.Windows.Forms.PaintEventHandler(this.field_Paint);
+            // 
+            // ViewTimer
+            // 
+            this.ViewTimer.Interval = 17;
+            this.ViewTimer.Tick += new System.EventHandler(this.ViewTimer_Tick);
             // 
             // drawingPanel
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1065, 516);
-            this.Controls.Add(this.panel1);
+            this.ClientSize = new System.Drawing.Size(799, 419);
+            this.Controls.Add(this.field);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "drawingPanel";
             this.Text = "Form1";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.drawingPanel_KeyDown);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        public System.Windows.Forms.Panel panel1;
+        public System.Windows.Forms.Panel field;
+        private System.Windows.Forms.Timer ViewTimer;
     }
 }
 

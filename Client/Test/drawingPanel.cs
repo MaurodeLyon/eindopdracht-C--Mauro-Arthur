@@ -8,50 +8,51 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Test 
+namespace Test
 {
     public partial class drawingPanel : Form
     {
-        private int x= 500,y = 500;
-        private Test test;
+        private Model model;
         public drawingPanel()
         {
             InitializeComponent();
-            
-            test = new Test(this);
+            ViewTimer.Enabled = true;
+            model = new Model(this);
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
+        private void field_Paint(object sender, PaintEventArgs e)
         {
-            test.drawOnPanel(sender,e);
+            model.drawOnPanel(sender, e);
         }
 
-        private void keyListener(object sender, KeyEventArgs e)
+        private void drawingPanel_KeyDown(object sender, KeyEventArgs e)
         {
+            int direction = 0;
             switch (e.KeyData)
             {
                 case Keys.Up:
-                    y += 20;
-                    test.ellipse = new Rectangle(x,y,10,10);
-                    panel1.Update();
+                    direction = 1;
                     break;
                 case Keys.Down:
-                    y -= 20;
-                    test.ellipse = new Rectangle(x, y, 10, 10);
-                    panel1.Update();
+                    direction = 2;
                     break;
                 case Keys.Left:
-                    x -= 20;
-                    test.ellipse = new Rectangle(x, y, 10, 10);
-                    panel1.Update();
+                    direction = 3;
                     break;
                 case Keys.Right:
-                    x += 20;
-                    test.ellipse = new Rectangle(x, y, 10, 10);
-                    panel1.Update();
+                    direction = 4;
                     break;
-                default: break;
+                case Keys.Escape:
+                    this.Close();
+                    break;
+                default: direction = 0; break;
             }
+            model.move(direction);
+        }
+
+        private void ViewTimer_Tick(object sender, EventArgs e)
+        {
+            field.Refresh();
         }
     }
 }
