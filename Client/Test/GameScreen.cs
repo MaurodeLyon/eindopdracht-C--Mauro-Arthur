@@ -20,7 +20,7 @@ namespace Client
         {
             InitializeComponent();
             Cursor.Hide(); // hide cursor
-            timer1.Enabled = true;
+            viewTimer.Enabled = true;
             this.FormBorderStyle = FormBorderStyle.None;    //remove borders
             this.TopMost = true;    //set form to the front
             this.Bounds = Screen.PrimaryScreen.Bounds; //set fullscreen
@@ -51,7 +51,7 @@ namespace Client
             }
             if (ball.Top <= field.Top)
             {
-                timer1.Enabled = false;
+                viewTimer.Enabled = false;
             }
         }
 
@@ -60,7 +60,7 @@ namespace Client
             switch (e.KeyCode)
             {
                 case Keys.Escape:
-                    this.Close();
+                    Application.Exit();
                     break;
                 default:
                     break;

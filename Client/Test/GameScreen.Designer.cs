@@ -32,7 +32,7 @@
             this.field = new System.Windows.Forms.Panel();
             this.racket = new System.Windows.Forms.PictureBox();
             this.ball = new System.Windows.Forms.PictureBox();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.viewTimer = new System.Windows.Forms.Timer(this.components);
             this.field.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.racket)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ball)).BeginInit();
@@ -66,10 +66,10 @@
             this.ball.TabIndex = 1;
             this.ball.TabStop = false;
             // 
-            // timer1
+            // viewTimer
             // 
-            this.timer1.Interval = 5;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.viewTimer.Interval = 5;
+            this.viewTimer.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // GameScreen
             // 
@@ -92,6 +92,6 @@
         private System.Windows.Forms.Panel field;
         public System.Windows.Forms.PictureBox ball;
         private System.Windows.Forms.PictureBox racket;
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer viewTimer;
     }
 }
