@@ -12,6 +12,7 @@ namespace Test
 {
     public partial class drawingPanel : Form
     {
+        private int x= 500,y = 500;
         private Test test;
         public drawingPanel()
         {
@@ -22,6 +23,36 @@ namespace Test
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
             test.drawOnPanel(sender,e);
+        }
+
+        private void keyListener(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyData)
+            {
+                case Keys.Up:
+                    y += 20;
+                    test.ellipse = new Rectangle(x,y,10,10);
+                    panel1.Update();
+                    Console.WriteLine("HELLO");
+                    Console.Read();
+                    break;
+                case Keys.Down:
+                    y -= 20;
+                    test.ellipse = new Rectangle(x, y, 10, 10);
+                    panel1.Update();
+                    break;
+                case Keys.Left:
+                    x -= 20;
+                    test.ellipse = new Rectangle(x, y, 10, 10);
+                    panel1.Update();
+                    break;
+                case Keys.Right:
+                    x += 20;
+                    test.ellipse = new Rectangle(x, y, 10, 10);
+                    panel1.Update();
+                    break;
+                default: break;
+            }
         }
     }
 }

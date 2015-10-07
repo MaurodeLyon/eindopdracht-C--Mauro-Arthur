@@ -12,7 +12,7 @@ namespace Test
     class Test
     {
         private drawingPanel panel;
-        private Rectangle ellipse;
+        public Rectangle ellipse { get; set; }
         public Test(drawingPanel panel)
         {
             this.panel = panel;
@@ -22,6 +22,11 @@ namespace Test
         public void drawOnPanel(object sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
+            Random r = new Random();
+           /* for (int i = 0; i < 10000; i++)
+            {
+                g.DrawLine(new Pen(Color.Black), new Point(r.Next(500), r.Next(500)), new Point(r.Next(500), r.Next(500)));
+            }*/
             g.DrawEllipse(new Pen(Color.Black), ellipse);
             
         }
