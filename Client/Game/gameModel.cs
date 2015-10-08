@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
+using System.Windows.Forms;
 
 namespace Game
 {
@@ -20,7 +21,7 @@ namespace Game
         public string score_Player_2;
 
         public int direction;
-        private Timer modelTimer;
+        private System.Timers.Timer modelTimer;
  
         public gameModel(GameView gameView)
         {
@@ -30,7 +31,7 @@ namespace Game
             ball = new Rectangle(gameView.field.Width / 2 - 10, gameView.field.Height / 2 - 10, 20, 20);
             score_Player_1 = "0";
             score_Player_2 = "5";
-            modelTimer = new Timer(10);
+            modelTimer = new System.Timers.Timer(10);
             modelTimer.Enabled = true;
             modelTimer.Elapsed += onTimedEvent;
         }
@@ -46,6 +47,7 @@ namespace Game
                 default:
                     break;
             }
+            player_1.Y = Cursor.Position.Y - (player_1.Height / 2);
         }
 
 

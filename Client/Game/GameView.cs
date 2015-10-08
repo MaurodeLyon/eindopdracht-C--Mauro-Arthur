@@ -28,6 +28,7 @@ namespace Game
         private void field_Paint(object sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
+            
             //arena
             g.DrawLine(new Pen(Brushes.White), new Point(field.Width / 2, 0), new Point(field.Width / 2, field.Height));
 
@@ -35,7 +36,7 @@ namespace Game
             g.FillRectangle(Brushes.White, gameModel.player_1);
             g.FillRectangle(Brushes.White, gameModel.player_2);
             g.FillRectangle(Brushes.Red, gameModel.ball);
-            
+
             //score
             g.DrawString(gameModel.score_Player_1, new Font("Comic sans", 50), Brushes.White, field.Width / 2 - 100, 10);
             g.DrawString(gameModel.score_Player_2, new Font("Comic sans", 50), Brushes.White, field.Width / 2 + 25, 10);
