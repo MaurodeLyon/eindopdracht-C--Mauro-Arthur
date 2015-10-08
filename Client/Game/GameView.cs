@@ -47,11 +47,8 @@ namespace Game
         {
             switch (e.KeyData)
             {
-                case Keys.Up:
-                    gameModel.direction = 1;
-                    break;
-                case Keys.Down:
-                    gameModel.direction = 2;
+                case Keys.Escape:
+                    Application.Exit();
                     break;
                 default:
                     break;
