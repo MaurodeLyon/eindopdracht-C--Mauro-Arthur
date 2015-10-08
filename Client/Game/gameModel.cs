@@ -30,7 +30,7 @@ namespace Game
             player_2 = new Rectangle(gameView.field.Width - 100, gameView.field.Height / 2 - 50, 25, 100);
             ball = new Rectangle(gameView.field.Width / 2 - 10, gameView.field.Height / 2 - 10, 20, 20);
             score_Player_1 = "0";
-            score_Player_2 = "5";
+            score_Player_2 = "0";
             modelTimer = new System.Timers.Timer(10);
             modelTimer.Enabled = true;
             modelTimer.Elapsed += onTimedEvent;
@@ -39,14 +39,6 @@ namespace Game
 
         private void onTimedEvent(object obj, ElapsedEventArgs e)
         {
-            switch (direction)
-            {
-                case 0: break;
-                case 1: player_1.Y--; break;
-                case 2: player_1.Y++; break;
-                default:
-                    break;
-            }
             player_1.Y = Cursor.Position.Y - (player_1.Height / 2);
         }
 
