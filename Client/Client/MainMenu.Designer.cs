@@ -34,9 +34,10 @@
             // 
             // Start
             // 
-            this.Start.Location = new System.Drawing.Point(337, 103);
+            this.Start.Location = new System.Drawing.Point(449, 127);
+            this.Start.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Start.Name = "Start";
-            this.Start.Size = new System.Drawing.Size(75, 23);
+            this.Start.Size = new System.Drawing.Size(100, 28);
             this.Start.TabIndex = 0;
             this.Start.Text = "Start game";
             this.Start.UseVisualStyleBackColor = true;
@@ -44,9 +45,10 @@
             // 
             // exitButton
             // 
-            this.exitButton.Location = new System.Drawing.Point(337, 142);
+            this.exitButton.Location = new System.Drawing.Point(449, 175);
+            this.exitButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.exitButton.Name = "exitButton";
-            this.exitButton.Size = new System.Drawing.Size(75, 23);
+            this.exitButton.Size = new System.Drawing.Size(100, 28);
             this.exitButton.TabIndex = 1;
             this.exitButton.Text = "Exit";
             this.exitButton.UseVisualStyleBackColor = true;
@@ -54,12 +56,12 @@
             // 
             // MainMenu
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(826, 436);
+            this.ClientSize = new System.Drawing.Size(1101, 537);
             this.Controls.Add(this.exitButton);
             this.Controls.Add(this.Start);
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "MainMenu";
             this.Text = "Form1";
             this.ResumeLayout(false);

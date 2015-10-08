@@ -1,6 +1,6 @@
-﻿namespace Test
+﻿namespace Game
 {
-    partial class drawingPanel
+    partial class GameView
     {
         /// <summary>
         /// Required designer variable.
@@ -29,44 +29,44 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.field = new System.Windows.Forms.Panel();
-            this.ViewTimer = new System.Windows.Forms.Timer(this.components);
+            this.field = new System.Windows.Forms.FlowLayoutPanel();
+            this.viewTimer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // field
             // 
-            this.field.AutoScroll = true;
+            this.field.BackColor = System.Drawing.Color.Black;
             this.field.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.field.ForeColor = System.Drawing.Color.White;
             this.field.Location = new System.Drawing.Point(0, 0);
-            this.field.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.field.Name = "field";
-            this.field.Size = new System.Drawing.Size(1065, 516);
+            this.field.Size = new System.Drawing.Size(891, 523);
             this.field.TabIndex = 0;
             this.field.Paint += new System.Windows.Forms.PaintEventHandler(this.field_Paint);
             // 
-            // ViewTimer
+            // viewTimer
             // 
-            this.ViewTimer.Interval = 10;
-            this.ViewTimer.Tick += new System.EventHandler(this.ViewTimer_Tick);
+            this.viewTimer.Interval = 15;
+            this.viewTimer.Tick += new System.EventHandler(this.viewTimer_Tick);
             // 
-            // drawingPanel
+            // GameView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1065, 516);
+            this.ClientSize = new System.Drawing.Size(891, 523);
             this.Controls.Add(this.field);
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.Name = "drawingPanel";
-            this.Text = "Form1";
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.drawingPanel_KeyDown);
+            this.Name = "GameView";
+            this.Text = "Ping";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.GameView_KeyDown);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.GameView_KeyUp);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        public System.Windows.Forms.Panel field;
-        private System.Windows.Forms.Timer ViewTimer;
+        public System.Windows.Forms.FlowLayoutPanel field;
+        private System.Windows.Forms.Timer viewTimer;
     }
 }
 

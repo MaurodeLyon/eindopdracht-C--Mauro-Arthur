@@ -16,6 +16,7 @@ namespace Test
         private System.Timers.Timer modelTimer;
 
         public int x, y;
+        public int direction { get; set; }
 
         public Model(drawingPanel panel)
         {
@@ -24,11 +25,13 @@ namespace Test
             y = panel.Height / 2;
             modelTimer = new System.Timers.Timer(10);
             modelTimer.Elapsed += onTimedEvent;
+            modelTimer.Enabled = true;
         }
 
         private void onTimedEvent(Object source, System.Timers.ElapsedEventArgs e)
         {
             // events every interval
+            move(direction);
         }
 
         public void drawOnPanel(object sender, PaintEventArgs e)

@@ -27,27 +27,29 @@ namespace Test
 
         private void drawingPanel_KeyDown(object sender, KeyEventArgs e)
         {
-            int direction = 0;
+            model.direction = 0;
+            
             switch (e.KeyData)
             {
                 case Keys.Up:
-                    direction = 1;
+                    model.direction = 1;
                     break;
                 case Keys.Down:
-                    direction = 2;
+                    model.direction = 2;
                     break;
                 case Keys.Left:
-                    direction = 3;
+                    model.direction = 3;
                     break;
                 case Keys.Right:
-                    direction = 4;
+                    model.direction = 4;
                     break;
                 case Keys.Escape:
                     this.Close();
                     break;
-                default: direction = 0; break;
+                default:
+                    model.direction = 0;
+                    break;
             }
-            model.move(direction);
         }
 
         private void ViewTimer_Tick(object sender, EventArgs e)
