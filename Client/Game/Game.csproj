@@ -46,16 +46,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="gameModel.cs" />
-    <Compile Include="GameView.cs">
+    <Compile Include="ClientGame\gameModel.cs" />
+    <Compile Include="ClientGame\GameView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GameView.Designer.cs">
+    <Compile Include="ClientGame\GameView.Designer.cs">
       <DependentUpon>GameView.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="GameView.resx">
+    <EmbeddedResource Include="ClientGame\GameView.resx">
       <DependentUpon>GameView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
