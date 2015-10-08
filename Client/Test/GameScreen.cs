@@ -66,5 +66,10 @@ namespace Client
                     break;
             }
         }
+
+        private void field_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

@@ -44,25 +44,29 @@
             this.field.Controls.Add(this.ball);
             this.field.Dock = System.Windows.Forms.DockStyle.Fill;
             this.field.Location = new System.Drawing.Point(0, 0);
+            this.field.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.field.Name = "field";
-            this.field.Size = new System.Drawing.Size(284, 261);
+            this.field.Size = new System.Drawing.Size(379, 321);
             this.field.TabIndex = 0;
+            this.field.Paint += new System.Windows.Forms.PaintEventHandler(this.field_Paint);
             // 
             // racket
             // 
             this.racket.BackColor = System.Drawing.Color.Black;
-            this.racket.Location = new System.Drawing.Point(65, 234);
+            this.racket.Location = new System.Drawing.Point(87, 288);
+            this.racket.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.racket.Name = "racket";
-            this.racket.Size = new System.Drawing.Size(150, 15);
+            this.racket.Size = new System.Drawing.Size(200, 18);
             this.racket.TabIndex = 2;
             this.racket.TabStop = false;
             // 
             // ball
             // 
             this.ball.BackColor = System.Drawing.Color.Red;
-            this.ball.Location = new System.Drawing.Point(132, 115);
+            this.ball.Location = new System.Drawing.Point(176, 142);
+            this.ball.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.ball.Name = "ball";
-            this.ball.Size = new System.Drawing.Size(25, 25);
+            this.ball.Size = new System.Drawing.Size(33, 31);
             this.ball.TabIndex = 1;
             this.ball.TabStop = false;
             // 
@@ -73,10 +77,11 @@
             // 
             // GameScreen
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.ClientSize = new System.Drawing.Size(379, 321);
             this.Controls.Add(this.field);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "GameScreen";
             this.Text = "GameScreeen";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.GameScreen_KeyDown);

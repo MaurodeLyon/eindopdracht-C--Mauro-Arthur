@@ -46,7 +46,7 @@
             // 
             // viewTimer
             // 
-            this.viewTimer.Interval = 15;
+            this.viewTimer.Interval = 20;
             this.viewTimer.Tick += new System.EventHandler(this.viewTimer_Tick);
             // 
             // GameView
