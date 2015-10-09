@@ -53,10 +53,20 @@
     <Compile Include="ClientGame\GameView.Designer.cs">
       <DependentUpon>GameView.cs</DependentUpon>
     </Compile>
+    <Compile Include="MainMenuGame\MainMenuModel.cs" />
+    <Compile Include="MainMenuGame\MainMenuView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainMenuGame\MainMenuView.Designer.cs">
+      <DependentUpon>MainMenuView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="ClientGame\GameView.resx">
       <DependentUpon>GameView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainMenuGame\MainMenuView.resx">
+      <DependentUpon>MainMenuView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

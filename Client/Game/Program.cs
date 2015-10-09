@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Game.MainMenuGame;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,7 +17,7 @@ namespace Game
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new GameView());
+            Application.Run(new MainMenuView());
         }
     }
 }
