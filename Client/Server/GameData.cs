@@ -28,6 +28,8 @@ namespace Server
                 if(e.roomname == roomName)
                 {
                     //Add new gameClient to room
+
+                    e.clients.Add(new GameClient(username, client));
                 }
             }
         }

@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace Server
 {
     class Room
     {
-        private List<Tuple<String,GameClient>> test;
+        public List<GameClient> clients { get; }
         public String roomname { get; }
 
         private Game game;
@@ -14,6 +15,28 @@ namespace Server
         {
             this.roomname = roomname;
             game = new Game();
+            this.clients = new List<GameClient>();
+
+            Thread task = new Thread(handleGame);
+            task.Start();
+
+        }
+
+        public void handleGame()
+        {
+            bool done = false;
+
+            while(!done)
+            {
+                //HANDLE UPDATING AND SENDING INFORMATION
+
+                foreach (GameClient e in clients)
+                {
+
+                }
+
+            }
+
         }
     }
 }
