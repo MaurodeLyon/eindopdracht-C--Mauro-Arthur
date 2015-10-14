@@ -1,6 +1,6 @@
 ﻿namespace Game.MainMenuGame
 {
-    partial class MainMenuView
+    partial class MenuScreenView
     {
         /// <summary>
         /// Required designer variable.
@@ -183,7 +183,7 @@
             this.ConnectionStatusLabel.TabIndex = 0;
             this.ConnectionStatusLabel.Text = "not connected to server";
             // 
-            // MainMenuView
+            // MenuScreenView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -195,8 +195,8 @@
             this.Controls.Add(this.gameButton);
             this.Controls.Add(this.titelLabel);
             this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.Name = "MainMenuView";
-            this.Text = "MainMenuView";
+            this.Name = "MenuScreenView";
+            this.Text = "MenuScreenView";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

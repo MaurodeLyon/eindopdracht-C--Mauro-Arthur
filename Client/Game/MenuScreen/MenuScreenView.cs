@@ -10,11 +10,11 @@ using System.Windows.Forms;
 
 namespace Game.MainMenuGame
 {
-    public partial class MainMenuView : Form
+    public partial class MenuScreenView : Form
     {
         private MainMenuModel model;
 
-        public MainMenuView()
+        public MenuScreenView()
         {
             InitializeComponent();
             this.FormBorderStyle = FormBorderStyle.None;    //remove borders
@@ -26,9 +26,9 @@ namespace Game.MainMenuGame
         private void gameButton_Click(object sender, EventArgs e)
         {
             this.Hide();
-            GameView gameView = new GameView();
-            gameView.Show();
-            FakeServerTest fakeServer = new FakeServerTest(gameView);
+            GameScreenView GameScreenView = new GameScreenView();
+            GameScreenView.Show();
+            FakeServerTest fakeServer = new FakeServerTest(GameScreenView);
         }
 
         private void scoreboardButton_Click(object sender, EventArgs e)

@@ -10,11 +10,11 @@ using System.Windows.Forms;
 
 namespace Game
 {
-    public partial class GameView : Form
+    public partial class GameScreenView : Form
     {
         public gameModel gameModel;
 
-        public GameView()
+        public GameScreenView()
         {
             InitializeComponent();
             Cursor.Hide();                                  //hide cursor
@@ -43,7 +43,12 @@ namespace Game
 
         }
 
-        private void GameView_KeyDown(object sender, KeyEventArgs e)
+        private void viewTimer_Tick(object sender, EventArgs e)
+        {
+            field.Refresh();
+        }
+
+        private void GameScreenView_KeyDown_1(object sender, KeyEventArgs e)
         {
             switch (e.KeyData)
             {
@@ -53,11 +58,6 @@ namespace Game
                 default:
                     break;
             }
-        }
-
-        private void viewTimer_Tick(object sender, EventArgs e)
-        {
-            field.Refresh();
         }
     }
 }

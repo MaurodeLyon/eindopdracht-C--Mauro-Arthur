@@ -11,7 +11,7 @@ namespace Game
 {
     public class gameModel
     {
-        private GameView gameView;
+        private GameScreenView GameScreenView;
         public FakeServerTest fakeServerTest;
 
         public Rectangle player_1;
@@ -23,12 +23,12 @@ namespace Game
 
         private System.Timers.Timer modelTimer;
 
-        public gameModel(GameView gameView)
+        public gameModel(GameScreenView GameScreenView)
         {
-            this.gameView = gameView;
-            player_1 = new Rectangle(100, gameView.field.Height / 2 - 50, 25, 100);
-            player_2 = new Rectangle(gameView.field.Width - 100, gameView.field.Height / 2 - 50, 25, 100);
-            ball = new Rectangle(gameView.field.Width / 2 - 10, gameView.field.Height / 2 - 10, 20, 20);
+            this.GameScreenView = GameScreenView;
+            player_1 = new Rectangle(100, GameScreenView.field.Height / 2 - 50, 25, 100);
+            player_2 = new Rectangle(GameScreenView.field.Width - 100, GameScreenView.field.Height / 2 - 50, 25, 100);
+            ball = new Rectangle(GameScreenView.field.Width / 2 - 10, GameScreenView.field.Height / 2 - 10, 20, 20);
             score_Player_1 = "0";
             score_Player_2 = "0";
             modelTimer = new System.Timers.Timer(10);

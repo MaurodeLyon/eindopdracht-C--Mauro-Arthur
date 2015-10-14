@@ -11,7 +11,7 @@ namespace Game
 {
     public class FakeServerTest
     {
-        private GameView gameView;
+        private GameScreenView GameScreenView;
 
         public Rectangle player_1;
         public Rectangle player_2;
@@ -25,14 +25,14 @@ namespace Game
 
         private System.Timers.Timer modelTimer;
 
-        public FakeServerTest(GameView gameView)
+        public FakeServerTest(GameScreenView GameScreenView)
         {
-            this.gameView = gameView;
-            this.gameView.gameModel.fakeServerTest = this;
+            this.GameScreenView = GameScreenView;
+            this.GameScreenView.gameModel.fakeServerTest = this;
             modelTimer = new System.Timers.Timer(10);
             modelTimer.Elapsed += onTimedEvent;
             modelTimer.Enabled = true;
-            ball = new Rectangle(gameView.field.Width / 2 - 10, gameView.field.Height / 2 - 10, 20, 20);
+            ball = new Rectangle(GameScreenView.field.Width / 2 - 10, GameScreenView.field.Height / 2 - 10, 20, 20);
         }
 
         private void onTimedEvent(object obj, ElapsedEventArgs e)
@@ -44,25 +44,25 @@ namespace Game
             if (player_1.Contains(ball) || player_2.Contains(ball))
                 ball_horizontal_speed *= -1;
 
-            if (ball.Top < gameView.field.Top || ball.Bottom > gameView.field.Bottom)
+            if (ball.Top < GameScreenView.field.Top || ball.Bottom > GameScreenView.field.Bottom)
                 ball_vertical_speed *= -1;
 
-            if (ball.Left <= gameView.field.Left)
+            if (ball.Left <= GameScreenView.field.Left)
             {
                 ball_horizontal_speed *= -1;
                 score_Player_2++;
             }
 
 
-            if (ball.Right >= gameView.field.Right)
+            if (ball.Right >= GameScreenView.field.Right)
             {
                 ball_horizontal_speed *= -1;
                 score_Player_1++;
             }
 
-            gameView.gameModel.ball = ball;
-            gameView.gameModel.score_Player_1 = score_Player_1.ToString();
-            gameView.gameModel.score_Player_2 = score_Player_2.ToString();
+            GameScreenView.gameModel.ball = ball;
+            GameScreenView.gameModel.score_Player_1 = score_Player_1.ToString();
+            GameScreenView.gameModel.score_Player_2 = score_Player_2.ToString();
         }
     }
 }

@@ -46,12 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClientGame\gameModel.cs" />
-    <Compile Include="ClientGame\GameView.cs">
+    <Compile Include="GameScreen\GameScreenModel.cs" />
+    <Compile Include="GameScreen\GameScreenView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ClientGame\GameView.Designer.cs">
-      <DependentUpon>GameView.cs</DependentUpon>
+    <Compile Include="GameScreen\GameScreenView.Designer.cs">
+      <DependentUpon>GameScreenView.cs</DependentUpon>
     </Compile>
     <Compile Include="EndScreen\EndScreenModel.cs" />
     <Compile Include="EndScreen\EndScreenView.cs">
@@ -61,23 +61,23 @@
       <DependentUpon>EndScreenView.cs</DependentUpon>
     </Compile>
     <Compile Include="FakeServerTest.cs" />
-    <Compile Include="MainMenuGame\MainMenuModel.cs" />
-    <Compile Include="MainMenuGame\MainMenuView.cs">
+    <Compile Include="MenuScreen\MenuScreenModel.cs" />
+    <Compile Include="MenuScreen\MenuScreenView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainMenuGame\MainMenuView.Designer.cs">
-      <DependentUpon>MainMenuView.cs</DependentUpon>
+    <Compile Include="MenuScreen\MenuScreenView.Designer.cs">
+      <DependentUpon>MenuScreenView.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="ClientGame\GameView.resx">
-      <DependentUpon>GameView.cs</DependentUpon>
+    <EmbeddedResource Include="GameScreen\GameScreenView.resx">
+      <DependentUpon>GameScreenView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EndScreen\EndScreenView.resx">
       <DependentUpon>EndScreenView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainMenuGame\MainMenuView.resx">
-      <DependentUpon>MainMenuView.cs</DependentUpon>
+    <EmbeddedResource Include="MenuScreen\MenuScreenView.resx">
+      <DependentUpon>MenuScreenView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
