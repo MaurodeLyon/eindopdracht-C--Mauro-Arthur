@@ -22,6 +22,13 @@ namespace Game.MainMenuGame
             this.Bounds = Screen.PrimaryScreen.Bounds;      //set fullscreen
             model = new MainMenuModel(this);
         }
+        
+        private void gameButton_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            GameView gameView = new GameView();
+            gameView.Show();
+        }
 
         private void scoreboardButton_Click(object sender, EventArgs e)
         {
@@ -39,6 +46,10 @@ namespace Game.MainMenuGame
             username = UsernameBox.Text;
             roomname = RoomnameBox.Text;
             //send to server
+
+            //Temporary fix to startgame until server connection
+            gameButton.Enabled = true;
+            gameButton.Text = "Start game";
         }
 
         private void JoinButton_Click(object sender, EventArgs e)
