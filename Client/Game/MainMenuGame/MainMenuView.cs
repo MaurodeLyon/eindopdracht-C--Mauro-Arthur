@@ -28,6 +28,7 @@ namespace Game.MainMenuGame
             this.Hide();
             GameView gameView = new GameView();
             gameView.Show();
+            FakeServerTest fakeServer = new FakeServerTest(gameView);
         }
 
         private void scoreboardButton_Click(object sender, EventArgs e)

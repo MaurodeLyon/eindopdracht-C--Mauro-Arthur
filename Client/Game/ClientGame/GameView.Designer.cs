@@ -57,8 +57,6 @@
             this.Controls.Add(this.field);
             this.Name = "GameView";
             this.Text = "Ping";
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.GameView_KeyDown);
-            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.GameView_KeyUp);
             this.ResumeLayout(false);
 
         }

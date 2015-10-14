@@ -53,6 +53,7 @@
     <Compile Include="ClientGame\GameView.Designer.cs">
       <DependentUpon>GameView.cs</DependentUpon>
     </Compile>
+    <Compile Include="FakeServerTest.cs" />
     <Compile Include="MainMenuGame\MainMenuModel.cs" />
     <Compile Include="MainMenuGame\MainMenuView.cs">
       <SubType>Form</SubType>

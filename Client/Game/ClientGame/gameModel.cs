@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace Game
 {
-    class gameModel
+    public class gameModel
     {
         private GameView gameView;
 
@@ -20,9 +20,8 @@ namespace Game
         public string score_Player_1;
         public string score_Player_2;
 
-        public int direction;
         private System.Timers.Timer modelTimer;
- 
+
         public gameModel(GameView gameView)
         {
             this.gameView = gameView;

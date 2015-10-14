@@ -12,7 +12,7 @@ namespace Game
 {
     public partial class GameView : Form
     {
-        private gameModel gameModel;
+        public gameModel gameModel;
 
         public GameView()
         {
@@ -28,7 +28,7 @@ namespace Game
         private void field_Paint(object sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
-            
+
             //arena
             g.DrawLine(new Pen(Brushes.White), new Point(field.Width / 2, 0), new Point(field.Width / 2, field.Height));
 
@@ -49,21 +49,6 @@ namespace Game
             {
                 case Keys.Escape:
                     Application.Exit();
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        private void GameView_KeyUp(object sender, KeyEventArgs e)
-        {
-            switch (e.KeyData)
-            {
-                case Keys.Up:
-                    gameModel.direction = 0;
-                    break;
-                case Keys.Down:
-                    gameModel.direction = 0;
                     break;
                 default:
                     break;
