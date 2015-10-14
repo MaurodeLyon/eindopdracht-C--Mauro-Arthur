@@ -12,6 +12,7 @@ namespace Game
     public class gameModel
     {
         private GameView gameView;
+        public FakeServerTest fakeServerTest;
 
         public Rectangle player_1;
         public Rectangle player_2;
@@ -36,9 +37,11 @@ namespace Game
         }
 
 
+
         private void onTimedEvent(object obj, ElapsedEventArgs e)
         {
             player_1.Y = Cursor.Position.Y - (player_1.Height / 2);
+            fakeServerTest.player_1 = player_1;
         }
 
 

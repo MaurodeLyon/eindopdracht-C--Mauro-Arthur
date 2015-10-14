@@ -53,6 +53,13 @@
     <Compile Include="ClientGame\GameView.Designer.cs">
       <DependentUpon>GameView.cs</DependentUpon>
     </Compile>
+    <Compile Include="EndScreen\EndScreenModel.cs" />
+    <Compile Include="EndScreen\EndScreenView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EndScreen\EndScreenView.Designer.cs">
+      <DependentUpon>EndScreenView.cs</DependentUpon>
+    </Compile>
     <Compile Include="FakeServerTest.cs" />
     <Compile Include="MainMenuGame\MainMenuModel.cs" />
     <Compile Include="MainMenuGame\MainMenuView.cs">
@@ -65,6 +72,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="ClientGame\GameView.resx">
       <DependentUpon>GameView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EndScreen\EndScreenView.resx">
+      <DependentUpon>EndScreenView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainMenuGame\MainMenuView.resx">
       <DependentUpon>MainMenuView.cs</DependentUpon>
