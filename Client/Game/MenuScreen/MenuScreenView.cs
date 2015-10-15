@@ -54,8 +54,17 @@ namespace Game.MainMenuGame
             //send to server
             DataHandler.writeData(model.client, "01" + username + ":" + roomname);
             //Temporary fix to startgame until server connection
-            gameButton.Enabled = true;
-            gameButton.Text = "Start game";
+            Boolean done = false;
+            while (!done)
+            {
+                string response = DataHandler.readData(model.client);
+                if (response.Substring(0, 2) == "03")
+                {
+                    done = true;
+                    gameButton.Enabled = true;
+                    gameButton.Text = "Start game";
+                }
+            }
         }
 
         private void JoinButton_Click(object sender, EventArgs e)
@@ -65,6 +74,17 @@ namespace Game.MainMenuGame
             roomname = RoomnameBox.Text;
             //send to server
             DataHandler.writeData(model.client, "02" + username + ":" + roomname);
+            Boolean done = false;
+            while (!done)
+            {
+                string response = DataHandler.readData(model.client);
+                if (response.Substring(0, 2) == "03")
+                {
+                    done = true;
+                    gameButton.Enabled = true;
+                    gameButton.Text = "Join game";
+                }
+            }
         }
     }
 }

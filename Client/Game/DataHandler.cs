@@ -11,8 +11,6 @@ namespace Game
 {
     class DataHandler
     {
-
-
         public static void writeData(TcpClient client,String d)
         {
             if (d.Length > 1)
@@ -21,7 +19,6 @@ namespace Game
                 BinaryFormatter formatter = new BinaryFormatter();
                 formatter.Serialize(client.GetStream(), messages);
             }
-
         }
 
         //Generic list used. Should replace the contents with what we will save for the scoreboard
