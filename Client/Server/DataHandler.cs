@@ -13,7 +13,7 @@ namespace Server
     {
 
 
-        public static void writeData(TcpClient client,String d)
+        public static void writeData(TcpClient client, String d)
         {
             if (d.Length > 1)
             {
@@ -27,9 +27,9 @@ namespace Server
         //Generic list used. Should replace the contents with what we will save for the scoreboard
         public static void writeData(TcpClient client, List<String> list)
         {
-                BinaryFormatter formatter = new BinaryFormatter();
-                formatter.Serialize(client.GetStream(), list);
-            
+            BinaryFormatter formatter = new BinaryFormatter();
+            formatter.Serialize(client.GetStream(), list);
+
         }
 
         //public static string readData(TcpClient client)
@@ -39,11 +39,7 @@ namespace Server
         //    {
         //        e = sr.ReadLine();
         //    }
-
         //    return e;
-
-
-            
         //}
 
         public static string readData(TcpClient client)
@@ -55,8 +51,6 @@ namespace Server
             {
                 line = lines[0];
             }
-
-
             return line;
         }
     }

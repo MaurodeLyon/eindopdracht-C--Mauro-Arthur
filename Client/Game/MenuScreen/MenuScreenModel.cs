@@ -17,9 +17,9 @@ namespace Game.MainMenuGame
         {
             this.form = form;
             //try to connect to server
-           //client = new TcpClient("127.0.0.1", 1338);
+            client = new TcpClient("145.48.227.168", 1338);
 
-            
+
         }
     }
 }

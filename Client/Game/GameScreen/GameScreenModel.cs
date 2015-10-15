@@ -54,25 +54,25 @@ namespace Game
                 int x;
                 int y;
 
-                int.TryParse(lines[0],out x);
+                int.TryParse(lines[0], out x);
                 ball.X = x;
 
-                
+
                 int.TryParse(lines[1], out y);
                 ball.Y = y;
 
-                
+
                 int.TryParse(lines[2], out x);
                 player_2.X = x;
 
-                
+
                 int.TryParse(lines[3], out y);
                 player_2.Y = y;
 
                 score_Player_1 = lines[4];
                 score_Player_2 = lines[5];
 
-                
+
 
 
 
@@ -85,14 +85,7 @@ namespace Game
         private void onTimedEvent(object obj, ElapsedEventArgs e)
         {
             player_1.Y = Cursor.Position.Y - (player_1.Height / 2);
-            fakeServerTest.player_1 = player_1;
-
-            DataHandler.writeData(GameScreenView.client,"05" + player_1.X +":" + player_1.Y);
-
-            
-
-            
-
+            DataHandler.writeData(GameScreenView.client, "05" + player_1.X + ":" + player_1.Y);
         }
     }
 }

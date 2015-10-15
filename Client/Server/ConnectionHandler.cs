@@ -18,8 +18,8 @@ namespace Server
             bool done = false;
 
             IPAddress localhost;
-            IPAddress.TryParse("127.0.0.1", out localhost);
-
+            IPAddress.TryParse("145.48.227.168", out localhost);
+            gamedata = new GameData();
             listener = new TcpListener(localhost, 1338);
             listener.Start();
 
@@ -38,12 +38,14 @@ namespace Server
                         param = data.Split(':');
                         gamedata.createRoom(param[1]);
                         gamedata.joinRoom(param[0], param[1], client);
+                        DataHandler.writeData(client, "03");
                         break;
 
                     case "02": //JOIN
                         data = data.Replace("02", "");
                         param = data.Split(':');
                         gamedata.joinRoom(param[0], param[1], client);
+                        DataHandler.writeData(client,"03");
                         break;
                 }
             }
