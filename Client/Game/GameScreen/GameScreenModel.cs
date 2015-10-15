@@ -26,8 +26,8 @@ namespace Game
         public gameModel(GameScreenView GameScreenView)
         {
             this.GameScreenView = GameScreenView;
-            player_1 = new Rectangle(100, GameScreenView.field.Height / 2 - 50, 25, 100);
-            player_2 = new Rectangle(GameScreenView.field.Width - 100, GameScreenView.field.Height / 2 - 50, 25, 100);
+            player_1 = new Rectangle(GameScreenView.field.Width / 20, GameScreenView.field.Height / 2 - 50, 25, 100);
+            player_2 = new Rectangle(GameScreenView.field.Width - GameScreenView.field.Width / 20, GameScreenView.field.Height / 2 - 50, 25, 100);
             ball = new Rectangle(GameScreenView.field.Width / 2 - 10, GameScreenView.field.Height / 2 - 10, 20, 20);
             score_Player_1 = "0";
             score_Player_2 = "0";
@@ -36,14 +36,10 @@ namespace Game
             modelTimer.Elapsed += onTimedEvent;
         }
 
-
-
         private void onTimedEvent(object obj, ElapsedEventArgs e)
         {
             player_1.Y = Cursor.Position.Y - (player_1.Height / 2);
             fakeServerTest.player_1 = player_1;
         }
-
-
     }
 }
