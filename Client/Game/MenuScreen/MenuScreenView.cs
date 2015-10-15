@@ -26,7 +26,7 @@ namespace Game.MainMenuGame
         private void gameButton_Click(object sender, EventArgs e)
         {
             this.Hide();
-            GameScreenView GameScreenView = new GameScreenView();
+            GameScreenView GameScreenView = new GameScreenView(model.client);
             GameScreenView.Show();
             FakeServerTest fakeServer = new FakeServerTest(GameScreenView);
         }
@@ -47,7 +47,7 @@ namespace Game.MainMenuGame
             username = UsernameBox.Text;
             roomname = RoomnameBox.Text;
             //send to server
-
+            DataHandler.writeData(model.client, "01" + username + ":" + roomname);
             //Temporary fix to startgame until server connection
             gameButton.Enabled = true;
             gameButton.Text = "Start game";
@@ -59,6 +59,7 @@ namespace Game.MainMenuGame
             username = UsernameBox.Text;
             roomname = RoomnameBox.Text;
             //send to server
+            DataHandler.writeData(model.client, "02" + username + ":" + roomname);
         }
     }
 }

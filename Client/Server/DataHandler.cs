@@ -32,18 +32,32 @@ namespace Server
             
         }
 
-        public static string readData(TcpClient client)
-        {
-            String e = "";
-            using (StreamReader sr = new StreamReader( client.GetStream()))
-            {
-                e = sr.ReadLine();
-            }
+        //public static string readData(TcpClient client)
+        //{
+        //    String e = "";
+        //    using (StreamReader sr = new StreamReader( client.GetStream()))
+        //    {
+        //        e = sr.ReadLine();
+        //    }
 
-            return e;
+        //    return e;
 
 
             
+        //}
+
+        public static string readData(TcpClient client)
+        {
+            BinaryFormatter formatter = new BinaryFormatter();
+            string[] lines = (string[])formatter.Deserialize(client.GetStream());
+            string line = "";
+            if (lines.Length == 1)
+            {
+                line = lines[0];
+            }
+
+
+            return line;
         }
     }
 }
