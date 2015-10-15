@@ -30,7 +30,7 @@ namespace Server
                 String data = DataHandler.readData(client);
                 String[] param;
                 String command = data.Substring(0, 2);
-
+                Console.WriteLine(data);
                 switch (command)
                 {
                     case "01": //CREATE
@@ -44,6 +44,7 @@ namespace Server
                             {
                                 room.amountPlayers++;
                                 DataHandler.writeData(room.clients[0].client, "03" + room.amountPlayers.ToString());
+                                Console.WriteLine("room " + param[1] + " created");
                             }
                         }
                         break;
@@ -59,12 +60,16 @@ namespace Server
                                 room.amountPlayers++;
                                 DataHandler.writeData(room.clients[0].client, "03" + room.amountPlayers.ToString());
                                 DataHandler.writeData(room.clients[1].client, "03" + room.amountPlayers.ToString());
+                                Console.WriteLine("joined room " + param[1]);
                             }
                         }
                         break;
                     case "04": //START GAME
+                        Console.WriteLine("code 04 received");
                         data = data.Replace("04", "");
+                        Console.WriteLine(data);
                         param = data.Split(':');
+                        Console.WriteLine(param);
                         foreach (Room room in gamedata.rooms)
                         {
                             if (room.roomname == param[0])

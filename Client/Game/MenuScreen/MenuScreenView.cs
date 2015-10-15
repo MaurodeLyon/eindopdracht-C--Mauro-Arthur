@@ -62,7 +62,7 @@ namespace Game.MainMenuGame
 
         private void gameButton_Click(object sender, EventArgs e)
         {
-            DataHandler.writeData(model.client, "04 " + roomname);
+            DataHandler.writeData(model.client, "04" + roomname);
         }
 
         private void scoreboardButton_Click(object sender, EventArgs e)
