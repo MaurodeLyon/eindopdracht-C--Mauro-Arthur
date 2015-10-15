@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -13,7 +14,6 @@ namespace Game.MainMenuGame
     public partial class MenuScreenView : Form
     {
         private MainMenuModel model;
-
         private string username, roomname;
         public MenuScreenView()
         {
@@ -27,23 +27,42 @@ namespace Game.MainMenuGame
             this.Bounds = Screen.PrimaryScreen.Bounds;      //set fullscreen
             this.WindowState = FormWindowState.Maximized;   //set fullscreen
             model = new MainMenuModel(this);
+            Thread responseThread = new Thread(new ThreadStart(HandleResponse));
+            responseThread.Start();
+        }
+
+        private void HandleResponse()
+        {
+            while (true)
+            {
+                while (model.client.GetStream().DataAvailable)
+                {
+                    string response = DataHandler.readData(model.client);
+                    string code = response.Substring(0, 2);
+                    response = response.Replace(code, "");
+                    string[] param = response.Split(':');
+
+                    switch (code)
+                    {
+                        case "03":
+                            AmountConnectedLabel.Invoke((MethodInvoker)(() => AmountConnectedLabel.Text = param[0] + "/2 players ready"));
+                            gameButton.Invoke((MethodInvoker)(() => gameButton.Enabled = true));
+                            gameButton.Invoke((MethodInvoker)(() => gameButton.Text = "Start game"));
+                            break;
+                        case "04":
+                            this.Hide();
+                            GameScreenView GameScreenView = new GameScreenView(model.client);
+                            GameScreenView.Show();
+                            break;
+                        default: break;
+                    }
+                }
+            }
         }
 
         private void gameButton_Click(object sender, EventArgs e)
         {
-            DataHandler.writeData(model.client,"04 "+ roomname);
-            Boolean done = false;
-            while (!done)
-            {
-                string response = DataHandler.readData(model.client);
-                if (response.Substring(0, 2) == "04")
-                {
-                    done = true;
-                    this.Hide();
-                    GameScreenView GameScreenView = new GameScreenView(model.client);
-                    GameScreenView.Show();
-                }
-            }
+            DataHandler.writeData(model.client, "04 " + roomname);
         }
 
         private void scoreboardButton_Click(object sender, EventArgs e)
@@ -62,18 +81,6 @@ namespace Game.MainMenuGame
             roomname = RoomnameBox.Text;
             //send to server
             DataHandler.writeData(model.client, "01" + username + ":" + roomname);
-            //Temporary fix to startgame until server connection
-            Boolean done = false;
-            while (!done)
-            {
-                string response = DataHandler.readData(model.client);
-                if (response.Substring(0, 2) == "03")
-                {
-                    done = true;
-                    gameButton.Enabled = true;
-                    gameButton.Text = "Start game";
-                }
-            }
         }
 
         private void JoinButton_Click(object sender, EventArgs e)
@@ -82,17 +89,6 @@ namespace Game.MainMenuGame
             roomname = RoomnameBox.Text;
             //send to server
             DataHandler.writeData(model.client, "02" + username + ":" + roomname);
-            Boolean done = false;
-            while (!done)
-            {
-                string response = DataHandler.readData(model.client);
-                if (response.Substring(0, 2) == "03")
-                {
-                    done = true;
-                    gameButton.Enabled = true;
-                    gameButton.Text = "Join game";
-                }
-            }
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Server
     {
         public List<GameClient> clients { get; }
         public String roomname { get; }
-        public Boolean joinedPlayerReady;
+        public int amountPlayers = 0;
 
         //Game Objects
         public Rectangle field;
@@ -30,13 +30,12 @@ namespace Server
         public int score_Player_2 = 0;
 
         private System.Timers.Timer modelTimer;
-        
+
 
         public Room(string roomname)
         {
             this.roomname = roomname;
             this.clients = new List<GameClient>();
-            joinedPlayerReady = false;
 
             modelTimer = new System.Timers.Timer(10);
             modelTimer.Elapsed += onTimedEvent;

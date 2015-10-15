@@ -38,14 +38,28 @@ namespace Server
                         param = data.Split(':');
                         gamedata.createRoom(param[1]);
                         gamedata.joinRoom(param[0], param[1], client);
-                        DataHandler.writeData(client, "03");
+                        foreach (Room room in gamedata.rooms)
+                        {
+                            if (room.roomname == param[1])
+                            {
+                                room.amountPlayers++;
+                                DataHandler.writeData(client, "03" + room.amountPlayers.ToString());
+                            }
+                        }
                         break;
 
                     case "02": //JOIN
                         data = data.Replace("02", "");
                         param = data.Split(':');
                         gamedata.joinRoom(param[0], param[1], client);
-                        DataHandler.writeData(client,"03");
+                        foreach (Room room in gamedata.rooms)
+                        {
+                            if (room.roomname == param[1])
+                            {
+                                room.amountPlayers++;
+                                DataHandler.writeData(client, "03" + room.amountPlayers.ToString());
+                            }
+                        }
                         break;
                     case "04": //START GAME
                         data = data.Replace("04", "");
