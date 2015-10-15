@@ -18,7 +18,7 @@ namespace Server
             bool done = false;
 
             IPAddress localhost;
-            IPAddress.TryParse("145.48.227.168", out localhost);
+            IPAddress.TryParse("127.0.0.1", out localhost);
             gamedata = new GameData();
             listener = new TcpListener(localhost, 1338);
             listener.Start();
@@ -42,8 +42,8 @@ namespace Server
                         {
                             if (room.roomname == param[1])
                             {
-                                room.amountPlayers++;
-                                DataHandler.writeData(room.clients[0].client, "03" + room.amountPlayers.ToString());
+                               // room.amountPlayers++;
+                                DataHandler.writeData(room.clients[0].client, "03" + room.clients.Count);
                                 Console.WriteLine("room " + param[1] + " created");
                             }
                         }
@@ -57,27 +57,28 @@ namespace Server
                         {
                             if (room.roomname == param[1])
                             {
-                                room.amountPlayers++;
-                                DataHandler.writeData(room.clients[0].client, "03" + room.amountPlayers.ToString());
-                                DataHandler.writeData(room.clients[1].client, "03" + room.amountPlayers.ToString());
+                                //room.amountPlayers++;
+                                DataHandler.writeData(room.clients[0].client, "03" + room.clients.Count);
+                                DataHandler.writeData(room.clients[1].client, "03" + room.clients.Count);
                                 Console.WriteLine("joined room " + param[1]);
-                            }
-                        }
-                        break;
-                    case "04": //START GAME
-                        Console.WriteLine("code 04 received");
-                        data = data.Replace("04", "");
-                        Console.WriteLine(data);
-                        param = data.Split(':');
-                        Console.WriteLine(param);
-                        foreach (Room room in gamedata.rooms)
-                        {
-                            if (room.roomname == param[0])
-                            {
                                 room.startGame();
                             }
                         }
                         break;
+                    //case "04": //START GAME
+                    //    Console.WriteLine("code 04 received");
+                    //    data = data.Replace("04", "");
+                    //    Console.WriteLine(data);
+                    //    param = data.Split(':');
+                    //    Console.WriteLine(param);
+                    //    foreach (Room room in gamedata.rooms)
+                    //    {
+                    //        if (room.roomname == param[0])
+                    //        {
+                    //            room.startGame();
+                    //        }
+                    //    }
+                    //    break;
                 }
             }
         }

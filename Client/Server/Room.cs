@@ -47,13 +47,12 @@ namespace Server
 
         public void startGame()
         {
-            if (amountPlayers == 2)
-            {
+            //if (amountPlayers == 2)
+            //{
                 Thread task = new Thread(new ThreadStart(handleGame));
                 task.Start();
-                DataHandler.writeData(clients[0].client, "04");
-                DataHandler.writeData(clients[1].client, "04");
-            }
+                
+           // }
         }
 
         //simulate game
@@ -95,6 +94,19 @@ namespace Server
 
         public void handleGame()
         {
+            bool starting = false;
+            while(!starting)
+            {
+                String command = DataHandler.readData(clients[0].client);
+
+                if (command.Substring(0, 2) == "04")
+                {
+                    starting = true;
+                    DataHandler.writeData(clients[0].client, "04");
+                    DataHandler.writeData(clients[1].client, "04");
+
+                }
+            }
             bool done = false;
             while (!done)
             {
@@ -102,6 +114,32 @@ namespace Server
                 GameClient client_1 = clients[0];
                 GameClient client_2 = clients[1];
                 //send ball,position other player and score to client 1
+
+                String p1 = DataHandler.readData(client_1.client);
+                String p2 = DataHandler.readData(client_2.client);
+
+                p1=p1.Replace("05", "");
+                p2=p2.Replace("05", "");
+                int x;
+                int y;
+
+                String[] p1Param = p1.Split(':');
+
+                int.TryParse(p1Param[0], out x);
+                int.TryParse(p1Param[1], out y);
+                player_1.X = x;
+                player_1.Y = y;
+
+                String[] p2Param = p2.Split(':');
+
+                int.TryParse(p2Param[0], out x);
+                int.TryParse(p2Param[1], out y);
+                player_2.X = x;
+                player_2.Y = y;
+
+
+
+
                 DataHandler.writeData(client_1.client, $"05 {ball.X}:{ball.Y}:{player_2.X}:{player_2.Y}:{score_Player_1}:{score_Player_2}");
                 //send ball,position other player and score to client 2
                 DataHandler.writeData(client_2.client, $"05 {ball.X}:{ball.Y}:{player_1.X}:{player_1.Y}:{score_Player_2}:{score_Player_1}");
