@@ -17,12 +17,17 @@ namespace Game.MainMenuGame
         public MenuScreenView()
         {
             InitializeComponent();
+            float scaleX = ((float)Screen.PrimaryScreen.WorkingArea.Width / 1024);
+            float scaleY = ((float)Screen.PrimaryScreen.WorkingArea.Height / 768);
+            SizeF aSf = new SizeF(scaleX, scaleY);
+            this.Scale(aSf);
             this.FormBorderStyle = FormBorderStyle.None;    //remove borders
             this.TopMost = true;                            //set form to the front
             this.Bounds = Screen.PrimaryScreen.Bounds;      //set fullscreen
+            this.WindowState = FormWindowState.Maximized;   //set fullscreen
             model = new MainMenuModel(this);
         }
-        
+
         private void gameButton_Click(object sender, EventArgs e)
         {
             this.Hide();

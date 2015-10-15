@@ -17,10 +17,10 @@ namespace Server
         {
             bool done = false;
 
-            IPAddress localhost = IPAddress.Parse("127.0.0.1");
+            IPAddress localhost;
+            IPAddress.TryParse("127.0.0.1", out localhost);
 
             listener = new TcpListener(localhost, 1338);
-
             listener.Start();
 
             while (!done)
@@ -31,36 +31,22 @@ namespace Server
                 String[] param;
                 String command = data.Substring(0, 2);
 
-                switch(command)
+                switch (command)
                 {
-                    case "01":
-                        //CREATE
+                    case "01": //CREATE
                         data = data.Replace("01", "");
                         param = data.Split(':');
-
-                        gamedata.createRoom(param[0]);
-                        gamedata.joinRoom(param[1], param[0], client);
+                        gamedata.createRoom(param[1]);
+                        gamedata.joinRoom(param[0], param[1], client);
                         break;
-                    case "02":
-                        //JOIN
+
+                    case "02": //JOIN
                         data = data.Replace("02", "");
                         param = data.Split(':');
-                        gamedata.joinRoom(param[1], param[0], client);
+                        gamedata.joinRoom(param[0], param[1], client);
                         break;
-
                 }
-
-
-
-
-                
-
-
-
             }
-
-
         }
-
     }
 }

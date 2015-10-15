@@ -35,6 +35,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -45,7 +47,6 @@
   <ItemGroup>
     <Compile Include="ConnectionHandler.cs" />
     <Compile Include="DataHandler.cs" />
-    <Compile Include="Game.cs" />
     <Compile Include="GameClient.cs" />
     <Compile Include="GameData.cs" />
     <Compile Include="Program.cs" />
