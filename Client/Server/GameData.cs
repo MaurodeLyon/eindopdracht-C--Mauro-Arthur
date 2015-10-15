@@ -6,14 +6,11 @@ namespace Server
 {
     class GameData
     {
-
-        public List<Room> rooms { get;}
+        public List<Room> rooms { get; }
 
         public GameData()
         {
             rooms = new List<Room>();
-            
-
         }
 
         public void createRoom(String roomname)
@@ -23,12 +20,11 @@ namespace Server
 
         public void joinRoom(String username, String roomName, TcpClient client)
         {
-            foreach(Room e in rooms)
+            foreach (Room e in rooms)
             {
-                if(e.roomname == roomName)
+                if (e.roomname == roomName)
                 {
                     //Add new gameClient to room
-
                     e.clients.Add(new GameClient(username, client));
                 }
             }

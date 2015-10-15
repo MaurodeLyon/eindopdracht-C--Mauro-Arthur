@@ -17,8 +17,8 @@ namespace Game
         public Rectangle player_2;
 
         public Rectangle ball;
-        private int ball_horizontal_speed = 10;
-        private int ball_vertical_speed = 10;
+        private int ball_horizontal_speed = -5;
+        private int ball_vertical_speed = 5;
 
         public int score_Player_1 = 0;
         public int score_Player_2 = 0;
@@ -29,7 +29,7 @@ namespace Game
         {
             this.GameScreenView = GameScreenView;
             this.GameScreenView.gameModel.fakeServerTest = this;
-            modelTimer = new System.Timers.Timer(10);
+            modelTimer = new System.Timers.Timer(5);
             modelTimer.Elapsed += onTimedEvent;
             modelTimer.Enabled = true;
             ball = new Rectangle(GameScreenView.field.Width / 2 - 10, GameScreenView.field.Height / 2 - 10, 20, 20);
@@ -44,19 +44,29 @@ namespace Game
             if (player_1.Contains(ball) || player_2.Contains(ball))
                 ball_horizontal_speed *= -1;
 
-            if (ball.Top < GameScreenView.field.Top || ball.Bottom > GameScreenView.field.Bottom)
-                ball_vertical_speed *= -1;
+            //if ball toches top border
+            if (ball.Top < GameScreenView.field.Top)
+                if (ball_vertical_speed < 0)
+                    ball_vertical_speed = -ball_vertical_speed;
 
+            //if ball touches bottom border
+            if (ball.Bottom > GameScreenView.field.Bottom)
+                if (ball_vertical_speed > 0)
+                    ball_vertical_speed = -ball_vertical_speed;
+
+            //if vall touches left border
             if (ball.Left <= GameScreenView.field.Left)
             {
-                ball_horizontal_speed *= -1;
+                if (ball_horizontal_speed < 0)
+                    ball_horizontal_speed = -ball_horizontal_speed;
                 score_Player_2++;
             }
 
-
+            //if ball touches right border
             if (ball.Right >= GameScreenView.field.Right)
             {
-                ball_horizontal_speed *= -1;
+                if (ball_horizontal_speed > 0)
+                    ball_horizontal_speed = -ball_horizontal_speed;
                 score_Player_1++;
             }
 

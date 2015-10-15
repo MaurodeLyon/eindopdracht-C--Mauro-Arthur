@@ -17,10 +17,15 @@ namespace Game
         public GameScreenView()
         {
             InitializeComponent();
-            Cursor.Hide();                                  //hide cursor
+            Cursor.Hide();
+            float scaleX = ((float)Screen.PrimaryScreen.WorkingArea.Width / 1024);
+            float scaleY = ((float)Screen.PrimaryScreen.WorkingArea.Height / 768);
+            SizeF aSf = new SizeF(scaleX, scaleY);
+            this.Scale(aSf);
             this.FormBorderStyle = FormBorderStyle.None;    //remove borders
             this.TopMost = true;                            //set form to the front
             this.Bounds = Screen.PrimaryScreen.Bounds;      //set fullscreen
+            this.WindowState = FormWindowState.Maximized;   //set fullscreen
             gameModel = new gameModel(this);
             viewTimer.Enabled = true;
         }
@@ -40,7 +45,6 @@ namespace Game
             //score
             g.DrawString(gameModel.score_Player_1, new Font("Comic sans", 50), Brushes.White, field.Width / 2 - 100, 10);
             g.DrawString(gameModel.score_Player_2, new Font("Comic sans", 50), Brushes.White, field.Width / 2 + 25, 10);
-
         }
 
         private void viewTimer_Tick(object sender, EventArgs e)
