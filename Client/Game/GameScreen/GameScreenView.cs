@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -13,10 +14,12 @@ namespace Game
     public partial class GameScreenView : Form
     {
         public gameModel gameModel;
-
-        public GameScreenView()
+        public TcpClient client { get; }
+        
+        public GameScreenView(TcpClient e)
         {
             InitializeComponent();
+            client = e; 
             Cursor.Hide();
             float scaleX = ((float)Screen.PrimaryScreen.WorkingArea.Width / 1024);
             float scaleY = ((float)Screen.PrimaryScreen.WorkingArea.Height / 768);

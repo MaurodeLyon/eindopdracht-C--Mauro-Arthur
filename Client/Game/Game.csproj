@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataHandler.cs" />
     <Compile Include="GameScreen\GameScreenModel.cs" />
     <Compile Include="GameScreen\GameScreenView.cs">
       <SubType>Form</SubType>
