@@ -47,6 +47,19 @@ namespace Server
                         gamedata.joinRoom(param[0], param[1], client);
                         DataHandler.writeData(client,"03");
                         break;
+                    case "04": //START GAME
+                        data = data.Replace("04", "");
+                        DataHandler.writeData(client, "03");
+                        foreach (Room room in gamedata.rooms)
+                        {
+                            if (room.roomname == data)
+                            {
+                                room.startGame();
+                                DataHandler.writeData(room.clients[0].client, "04");
+                                DataHandler.writeData(room.clients[1].client, "04");
+                            }
+                        }
+                        break;
                 }
             }
         }

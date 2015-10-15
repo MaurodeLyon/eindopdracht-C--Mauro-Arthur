@@ -14,6 +14,7 @@ namespace Game.MainMenuGame
     {
         private MainMenuModel model;
 
+        private string username, roomname;
         public MenuScreenView()
         {
             InitializeComponent();
@@ -30,10 +31,19 @@ namespace Game.MainMenuGame
 
         private void gameButton_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            GameScreenView GameScreenView = new GameScreenView(model.client);
-            GameScreenView.Show();
-            FakeServerTest fakeServer = new FakeServerTest(GameScreenView);
+            DataHandler.writeData(model.client,"04 "+ roomname);
+            Boolean done = false;
+            while (!done)
+            {
+                string response = DataHandler.readData(model.client);
+                if (response.Substring(0, 2) == "04")
+                {
+                    done = true;
+                    this.Hide();
+                    GameScreenView GameScreenView = new GameScreenView(model.client);
+                    GameScreenView.Show();
+                }
+            }
         }
 
         private void scoreboardButton_Click(object sender, EventArgs e)
@@ -48,7 +58,6 @@ namespace Game.MainMenuGame
 
         private void CreateButton_Click(object sender, EventArgs e)
         {
-            string username, roomname;
             username = UsernameBox.Text;
             roomname = RoomnameBox.Text;
             //send to server
@@ -69,7 +78,6 @@ namespace Game.MainMenuGame
 
         private void JoinButton_Click(object sender, EventArgs e)
         {
-            string username, roomname;
             username = UsernameBox.Text;
             roomname = RoomnameBox.Text;
             //send to server
