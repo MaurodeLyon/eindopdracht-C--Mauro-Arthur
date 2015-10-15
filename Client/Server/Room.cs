@@ -14,6 +14,7 @@ namespace Server
     {
         public List<GameClient> clients { get; }
         public String roomname { get; }
+        public Boolean joinedPlayerReady;
 
         //Game Objects
         public Rectangle field;
@@ -29,10 +30,13 @@ namespace Server
         public int score_Player_2 = 0;
 
         private System.Timers.Timer modelTimer;
+        
+
         public Room(string roomname)
         {
             this.roomname = roomname;
             this.clients = new List<GameClient>();
+            joinedPlayerReady = false;
 
             modelTimer = new System.Timers.Timer(10);
             modelTimer.Elapsed += onTimedEvent;
@@ -40,7 +44,10 @@ namespace Server
 
             field = new Rectangle(0, 0, 1024, 768);
             ball = new Rectangle(field.Width / 2 - 10, field.Height / 2 - 10, 20, 20);
+        }
 
+        public void startGame()
+        {
             Thread task = new Thread(new ThreadStart(handleGame));
             task.Start();
         }
