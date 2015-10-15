@@ -47,8 +47,11 @@ namespace Server
 
         public void startGame()
         {
-            Thread task = new Thread(new ThreadStart(handleGame));
-            task.Start();
+            if (amountPlayers == 2)
+            {
+                Thread task = new Thread(new ThreadStart(handleGame));
+                task.Start();
+            }
         }
 
         //simulate game
