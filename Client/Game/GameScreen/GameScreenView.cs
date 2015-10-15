@@ -10,11 +10,11 @@ using System.Windows.Forms;
 
 namespace Game
 {
-    public partial class GameView : Form
+    public partial class GameScreenView : Form
     {
-        private gameModel gameModel;
+        public gameModel gameModel;
 
-        public GameView()
+        public GameScreenView()
         {
             InitializeComponent();
             Cursor.Hide();                                  //hide cursor
@@ -28,7 +28,7 @@ namespace Game
         private void field_Paint(object sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
-            
+
             //arena
             g.DrawLine(new Pen(Brushes.White), new Point(field.Width / 2, 0), new Point(field.Width / 2, field.Height));
 
@@ -43,7 +43,12 @@ namespace Game
 
         }
 
-        private void GameView_KeyDown(object sender, KeyEventArgs e)
+        private void viewTimer_Tick(object sender, EventArgs e)
+        {
+            field.Refresh();
+        }
+
+        private void GameScreenView_KeyDown_1(object sender, KeyEventArgs e)
         {
             switch (e.KeyData)
             {
@@ -53,26 +58,6 @@ namespace Game
                 default:
                     break;
             }
-        }
-
-        private void GameView_KeyUp(object sender, KeyEventArgs e)
-        {
-            switch (e.KeyData)
-            {
-                case Keys.Up:
-                    gameModel.direction = 0;
-                    break;
-                case Keys.Down:
-                    gameModel.direction = 0;
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        private void viewTimer_Tick(object sender, EventArgs e)
-        {
-            field.Refresh();
         }
     }
 }

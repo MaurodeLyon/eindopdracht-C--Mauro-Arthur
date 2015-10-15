@@ -9,9 +9,10 @@ using System.Windows.Forms;
 
 namespace Game
 {
-    class gameModel
+    public class gameModel
     {
-        private GameView gameView;
+        private GameScreenView GameScreenView;
+        public FakeServerTest fakeServerTest;
 
         public Rectangle player_1;
         public Rectangle player_2;
@@ -20,15 +21,14 @@ namespace Game
         public string score_Player_1;
         public string score_Player_2;
 
-        public int direction;
         private System.Timers.Timer modelTimer;
- 
-        public gameModel(GameView gameView)
+
+        public gameModel(GameScreenView GameScreenView)
         {
-            this.gameView = gameView;
-            player_1 = new Rectangle(100, gameView.field.Height / 2 - 50, 25, 100);
-            player_2 = new Rectangle(gameView.field.Width - 100, gameView.field.Height / 2 - 50, 25, 100);
-            ball = new Rectangle(gameView.field.Width / 2 - 10, gameView.field.Height / 2 - 10, 20, 20);
+            this.GameScreenView = GameScreenView;
+            player_1 = new Rectangle(100, GameScreenView.field.Height / 2 - 50, 25, 100);
+            player_2 = new Rectangle(GameScreenView.field.Width - 100, GameScreenView.field.Height / 2 - 50, 25, 100);
+            ball = new Rectangle(GameScreenView.field.Width / 2 - 10, GameScreenView.field.Height / 2 - 10, 20, 20);
             score_Player_1 = "0";
             score_Player_2 = "0";
             modelTimer = new System.Timers.Timer(10);
@@ -37,9 +37,11 @@ namespace Game
         }
 
 
+
         private void onTimedEvent(object obj, ElapsedEventArgs e)
         {
             player_1.Y = Cursor.Position.Y - (player_1.Height / 2);
+            fakeServerTest.player_1 = player_1;
         }
 
 
