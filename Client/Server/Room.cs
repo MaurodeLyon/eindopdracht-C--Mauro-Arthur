@@ -19,24 +19,19 @@ namespace Server
 
             Thread task = new Thread(handleGame);
             task.Start();
-
         }
 
         public void handleGame()
         {
             bool done = false;
-
-            while(!done)
+            while (!done)
             {
                 //HANDLE UPDATING AND SENDING INFORMATION
-
                 foreach (GameClient e in clients)
                 {
 
                 }
-
             }
-
         }
     }
 }
