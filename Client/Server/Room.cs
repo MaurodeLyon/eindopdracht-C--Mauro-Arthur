@@ -51,6 +51,8 @@ namespace Server
             {
                 Thread task = new Thread(new ThreadStart(handleGame));
                 task.Start();
+                DataHandler.writeData(clients[0].client, "04");
+                DataHandler.writeData(clients[1].client, "04");
             }
         }
 

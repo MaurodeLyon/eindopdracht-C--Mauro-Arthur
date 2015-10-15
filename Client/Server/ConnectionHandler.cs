@@ -43,7 +43,7 @@ namespace Server
                             if (room.roomname == param[1])
                             {
                                 room.amountPlayers++;
-                                DataHandler.writeData(client, "03" + room.amountPlayers.ToString());
+                                DataHandler.writeData(room.clients[0].client, "03" + room.amountPlayers.ToString());
                             }
                         }
                         break;
@@ -57,20 +57,19 @@ namespace Server
                             if (room.roomname == param[1])
                             {
                                 room.amountPlayers++;
-                                DataHandler.writeData(client, "03" + room.amountPlayers.ToString());
+                                DataHandler.writeData(room.clients[0].client, "03" + room.amountPlayers.ToString());
+                                DataHandler.writeData(room.clients[1].client, "03" + room.amountPlayers.ToString());
                             }
                         }
                         break;
                     case "04": //START GAME
                         data = data.Replace("04", "");
-                        DataHandler.writeData(client, "03");
+                        param = data.Split(':');
                         foreach (Room room in gamedata.rooms)
                         {
-                            if (room.roomname == data)
+                            if (room.roomname == param[0])
                             {
                                 room.startGame();
-                                DataHandler.writeData(room.clients[0].client, "04");
-                                DataHandler.writeData(room.clients[1].client, "04");
                             }
                         }
                         break;
