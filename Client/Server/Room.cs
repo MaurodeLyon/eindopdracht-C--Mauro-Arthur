@@ -95,10 +95,12 @@ namespace Server
         public void handleGame()
         {
             bool starting = false;
+            Console.WriteLine("Handling game");
             while(!starting)
             {
                 String command = DataHandler.readData(clients[0].client);
-
+                Console.WriteLine(command);
+                Console.WriteLine(command.Substring(0, 2));
                 if (command.Substring(0, 2) == "04")
                 {
                     starting = true;
@@ -108,6 +110,7 @@ namespace Server
                 }
             }
             bool done = false;
+            Console.WriteLine("starting game");
             while (!done)
             {
                 //HANDLE UPDATING AND SENDING INFORMATION

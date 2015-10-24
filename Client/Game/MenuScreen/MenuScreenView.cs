@@ -22,10 +22,10 @@ namespace Game.MainMenuGame
             float scaleY = ((float)Screen.PrimaryScreen.WorkingArea.Height / 768);
             SizeF aSf = new SizeF(scaleX, scaleY);
             this.Scale(aSf);
-            this.FormBorderStyle = FormBorderStyle.None;    //remove borders
-            this.TopMost = true;                            //set form to the front
-            this.Bounds = Screen.PrimaryScreen.Bounds;      //set fullscreen
-            this.WindowState = FormWindowState.Maximized;   //set fullscreen
+            //this.FormBorderStyle = FormBorderStyle.None;    //remove borders
+            //this.TopMost = true;                            //set form to the front
+            //this.Bounds = Screen.PrimaryScreen.Bounds;      //set fullscreen
+            //this.WindowState = FormWindowState.Maximized;   //set fullscreen
             model = new MainMenuModel(this);
             Thread responseThread = new Thread(new ThreadStart(HandleResponse));
             responseThread.Start();
@@ -50,7 +50,8 @@ namespace Game.MainMenuGame
                             gameButton.Invoke((MethodInvoker)(() => gameButton.Text = "Start game"));
                             break;
                         case "04":
-                            this.Hide();
+                            //this.Hide();
+                            this.Invoke((MethodInvoker)(() => this.Hide()));
                             GameScreenView GameScreenView = new GameScreenView(model.client);
                             GameScreenView.Show();
                             break;
