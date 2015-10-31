@@ -9,6 +9,10 @@ namespace Library
 {
     public class DataHandler
     {
+
+        /******************
+        voor het versturen van een serialized message
+        ******************/
         public static void writeData(TcpClient client, string d)
         {
             if (d.Length > 1)
@@ -16,6 +20,33 @@ namespace Library
                 string[] messages = { d };
                 new BinaryFormatter().Serialize(client.GetStream(), messages);
             }
+        }
+
+        public static string readData(TcpClient client)
+        {
+            string[] lines = (string[])new BinaryFormatter().Deserialize(client.GetStream());
+            string line = "";
+            if (lines.Length == 1)
+            {
+                line = lines[0];
+            }
+            return line;
+        }
+
+        /******************
+        voor het versturen van een string
+        ******************/
+        public static void SendString(TcpClient client, string message)
+        {
+            StreamWriter stream = new StreamWriter(client.GetStream(), Encoding.Unicode);
+            stream.WriteLine(message);
+            stream.Flush();
+        }
+
+        public static string ReadString(TcpClient client)
+        {
+            StreamReader stream = new StreamReader(client.GetStream(), Encoding.Unicode);
+            return stream.ReadLine();
         }
 
         //Generic list used. Should replace the contents with what we will save for the scoreboard
@@ -34,15 +65,5 @@ namespace Library
         //    return e;
         //}
 
-        public static string readData(TcpClient client)
-        {
-            string[] lines = (string[])new BinaryFormatter().Deserialize(client.GetStream());
-            string line = "";
-            if (lines.Length == 1)
-            {
-                line = lines[0];
-            }
-            return line;
-        }
     }
 }
