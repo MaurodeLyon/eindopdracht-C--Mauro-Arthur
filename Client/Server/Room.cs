@@ -7,13 +7,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
+using Library;
+using System.Net.Sockets;
 
 namespace Server
 {
     class Room
     {
         public List<GameClient> clients { get; }
-        public String roomname { get; }
+        public string roomname { get; }
         public int amountPlayers = 0;
 
         //Game Objects
@@ -39,7 +41,6 @@ namespace Server
 
             modelTimer = new System.Timers.Timer(10);
             modelTimer.Elapsed += onTimedEvent;
-            modelTimer.Enabled = true;
 
             field = new Rectangle(0, 0, 1024, 768);
             ball = new Rectangle(field.Width / 2 - 10, field.Height / 2 - 10, 20, 20);
@@ -47,12 +48,7 @@ namespace Server
 
         public void startGame()
         {
-            //if (amountPlayers == 2)
-            //{
-                Thread task = new Thread(new ThreadStart(handleGame));
-                task.Start();
-                
-           // }
+            new Thread(handleGame).Start();
         }
 
         //simulate game
@@ -91,62 +87,78 @@ namespace Server
                 score_Player_1++;
             }
         }
+        string p1, p2;
+        Thread t1;
+        Thread t2;
 
         public void handleGame()
         {
             bool starting = false;
-            Console.WriteLine("Handling game");
-            while(!starting)
+            Console.WriteLine("Starting games on client");
+            while (!starting)
             {
-                String command = DataHandler.readData(clients[0].client);
+                string command = DataHandler.readData(clients[0].client);
                 Console.WriteLine(command);
                 Console.WriteLine(command.Substring(0, 2));
                 if (command.Substring(0, 2) == "04")
                 {
-                    starting = true;
                     DataHandler.writeData(clients[0].client, "04");
                     DataHandler.writeData(clients[1].client, "04");
-
+                    starting = true;
                 }
             }
+
             bool done = false;
-            Console.WriteLine("starting game");
+            Console.WriteLine("starting game on server");
+
+            //HANDLE UPDATING AND SENDING INFORMATION
+            GameClient client_1 = clients[0];
+            GameClient client_2 = clients[1];
+            t1 = new Thread(ReadData1);
+            t2 = new Thread(ReadData2);
             while (!done)
             {
-                //HANDLE UPDATING AND SENDING INFORMATION
-                GameClient client_1 = clients[0];
-                GameClient client_2 = clients[1];
-                //send ball,position other player and score to client 1
+                if (!t1.IsAlive)
+                    t1.Start(client_1.client);
+                if (!t2.IsAlive)
+                    t2.Start(client_2.client);
 
-                String p1 = DataHandler.readData(client_1.client);
-                String p2 = DataHandler.readData(client_2.client);
-
-                p1=p1.Replace("05", "");
-                p2=p2.Replace("05", "");
+                p1 = p1.Replace("05", "");
+                p2 = p2.Replace("05", "");
                 int x;
                 int y;
 
-                String[] p1Param = p1.Split(':');
+                string[] p1Param = p1.Split(':');
 
                 int.TryParse(p1Param[0], out x);
                 int.TryParse(p1Param[1], out y);
                 player_1.X = x;
                 player_1.Y = y;
 
-                String[] p2Param = p2.Split(':');
+                string[] p2Param = p2.Split(':');
 
                 int.TryParse(p2Param[0], out x);
                 int.TryParse(p2Param[1], out y);
                 player_2.X = x;
                 player_2.Y = y;
 
-
-
-
+                //send ball,position other player and score to client 1
                 DataHandler.writeData(client_1.client, $"05 {ball.X}:{ball.Y}:{player_2.X}:{player_2.Y}:{score_Player_1}:{score_Player_2}");
                 //send ball,position other player and score to client 2
                 DataHandler.writeData(client_2.client, $"05 {ball.X}:{ball.Y}:{player_1.X}:{player_1.Y}:{score_Player_2}:{score_Player_1}");
             }
+        }
+
+        private void ReadData1(object obj)
+        {
+            TcpClient client = obj as TcpClient;
+            p1 = DataHandler.readData(client);
+        }
+
+        private void ReadData2(object obj)
+        {
+            TcpClient client = obj as TcpClient;
+            p2 = DataHandler.readData(client);
         }
     }
 }

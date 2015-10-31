@@ -47,7 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataHandler.cs" />
+    <Compile Include="ConnectionToServer.cs" />
     <Compile Include="GameScreen\GameScreenModel.cs" />
     <Compile Include="GameScreen\GameScreenView.cs">
       <SubType>Form</SubType>
@@ -102,6 +102,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Library\Library.csproj">
+      <Project>{9f268618-2b5e-4d89-87ac-fd757e1dd4de}</Project>
+      <Name>Library</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

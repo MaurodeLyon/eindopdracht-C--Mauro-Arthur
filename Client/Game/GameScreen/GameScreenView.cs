@@ -14,12 +14,10 @@ namespace Game
     public partial class GameScreenView : Form
     {
         public gameModel gameModel;
-        public TcpClient client { get; }
-        
-        public GameScreenView(TcpClient e)
+
+        public GameScreenView()
         {
             InitializeComponent();
-            client = e; 
             Cursor.Hide();
             float scaleX = ((float)Screen.PrimaryScreen.WorkingArea.Width / 1024);
             float scaleY = ((float)Screen.PrimaryScreen.WorkingArea.Height / 768);
