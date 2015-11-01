@@ -56,8 +56,11 @@ namespace Server
                             {
                                 DataHandler.writeData(room.clients[0].client, "03" + room.clients.Count);
                                 Console.WriteLine("room " + param[1] + " created");
+                                room.startGame();
                             }
                         }
+
+                        done = true;
                         break;
                     case "02": //JOIN "username":"roomname"
                         data = data.Replace("02", "");
@@ -72,20 +75,22 @@ namespace Server
                                 Console.WriteLine("joined room " + param[1]);
                             }
                         }
-                        break;
-                    case "04": //START GAME
-                        data = data.Replace("04", "");
-                        param = data.Split(':');
-                        foreach (Room room in gamedata.rooms)
-                        {
-                            if (room.roomname == param[0])
-                            {
-                                Console.WriteLine("starting game" + room.roomname);
-                                room.startGame();
-                            }
-                        }
                         done = true;
+                        
                         break;
+                    //case "04": //START GAME
+                    //    data = data.Replace("04", "");
+                    //    param = data.Split(':');
+                    //    foreach (Room room in gamedata.rooms)
+                    //    {
+                    //        if (room.roomname == param[0])
+                    //        {
+                    //            Console.WriteLine("starting game" + room.roomname);
+                    //            room.startGame();
+                    //        }
+                    //    }
+                    //    done = true;
+                    //    break;
                 }
             }
         }
