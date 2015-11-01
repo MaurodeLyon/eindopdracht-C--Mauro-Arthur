@@ -21,6 +21,7 @@ namespace Game
         public EndScreenModel endModel;
 
         private System.Timers.Timer modelTimer;
+        private System.Timers.Timer connectionTimer;
 
         public ConnectionToServer(TcpClient client)
         {
@@ -29,6 +30,14 @@ namespace Game
 
             modelTimer = new System.Timers.Timer(10);
             modelTimer.Elapsed += onTimedEvent;
+
+            connectionTimer = new System.Timers.Timer(50);
+            connectionTimer.Elapsed += onConnectionEvent;
+        }
+
+        private void onConnectionEvent(object sender, ElapsedEventArgs e)
+        {
+            DataHandler.writeData(client, "05" + gameModel.player_1.X + ":" + gameModel.player_1.Y);
         }
 
         private void HandleResponse()
@@ -96,6 +105,7 @@ namespace Game
                                 gameModel.GameScreenView.Show();
                             }
                             modelTimer.Enabled = true;
+                            connectionTimer.Enabled = true;
                             break;
                         case "05":
                             int x;
@@ -125,7 +135,7 @@ namespace Game
         private void onTimedEvent(object obj, ElapsedEventArgs e)
         {
             gameModel.player_1.Y = Cursor.Position.Y - (gameModel.player_1.Height / 2);
-            DataHandler.writeData(client, "05" + gameModel.player_1.X + ":" + gameModel.player_1.Y);
+            
         }
     }
 }

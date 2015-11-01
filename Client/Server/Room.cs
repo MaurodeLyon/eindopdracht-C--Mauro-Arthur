@@ -35,6 +35,8 @@ namespace Server
 
         private System.Timers.Timer debugTimer;
 
+        private System.Timers.Timer connectionTimer;
+
         private Boolean p1R = false, p2R = false;
 
 
@@ -49,12 +51,24 @@ namespace Server
 
             debugTimer = new System.Timers.Timer(1000);
 
+            connectionTimer = new System.Timers.Timer(50);
+
+            connectionTimer.Elapsed += onConnectionEvent;
+
             debugTimer.Elapsed += onDebugEvent;
 
 
 
             field = new Rectangle(0, 0, 1024, 768);
             ball = new Rectangle(field.Width / 2 - 10, field.Height / 2 - 10, 20, 20);
+        }
+
+        private void onConnectionEvent(object sender, ElapsedEventArgs e)
+        {
+            DataHandler.writeData(clients[0].client, $"05 {ball.X}:{ball.Y}:{player_2.X}:{player_2.Y}:{score_Player_1}:{score_Player_2}");
+            //send ball,position other player and score to client 2
+            DataHandler.writeData(clients[1].client, $"05 {ball.X}:{ball.Y}:{player_1.X}:{player_1.Y}:{score_Player_2}:{score_Player_1}");
+            //Co
         }
 
         public void startGame()
@@ -145,6 +159,7 @@ namespace Server
                     DataHandler.writeData(clients[1].client, "04");
                     modelTimer.Start();
                     debugTimer.Start();
+                    connectionTimer.Start();
                 }
             }
 
@@ -193,9 +208,9 @@ namespace Server
                     player_2.Y = y;
                 }
                 //send ball,position other player and score to client 1
-                DataHandler.writeData(client_1.client, $"05 {ball.X}:{ball.Y}:{player_2.X}:{player_2.Y}:{score_Player_1}:{score_Player_2}");
+               // DataHandler.writeData(client_1.client, $"05 {ball.X}:{ball.Y}:{player_2.X}:{player_2.Y}:{score_Player_1}:{score_Player_2}");
                 //send ball,position other player and score to client 2
-                DataHandler.writeData(client_2.client, $"05 {ball.X}:{ball.Y}:{player_1.X}:{player_1.Y}:{score_Player_2}:{score_Player_1}");
+                //DataHandler.writeData(client_2.client, $"05 {ball.X}:{ball.Y}:{player_1.X}:{player_1.Y}:{score_Player_2}:{score_Player_1}");
                 //Console.WriteLine($"05 {ball.X}:{ball.Y}:{player_2.X}:{player_2.Y}:{score_Player_1}:{score_Player_2}");
                 //send ball,position other player and score to client 2
                // Console.WriteLine($"05 {ball.X}:{ball.Y}:{player_1.X}:{player_1.Y}:{score_Player_2}:{score_Player_1}");
