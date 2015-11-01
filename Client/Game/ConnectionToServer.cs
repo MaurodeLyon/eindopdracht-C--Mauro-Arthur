@@ -21,14 +21,26 @@ namespace Game
         public EndScreenModel endModel;
 
         private System.Timers.Timer modelTimer;
+        private System.Timers.Timer connectionTimer;
+        [System.Runtime.InteropServices.DllImport("kernel32.dll")]
+        private static extern bool AllocConsole();
 
         public ConnectionToServer(TcpClient client)
         {
+            AllocConsole();
             this.client = client;
             new Thread(HandleResponse).Start();
 
             modelTimer = new System.Timers.Timer(10);
             modelTimer.Elapsed += onTimedEvent;
+
+            connectionTimer = new System.Timers.Timer(50);
+            connectionTimer.Elapsed += onConnectionEvent;
+        }
+
+        private void onConnectionEvent(object sender, ElapsedEventArgs e)
+        {
+            DataHandler.writeData(client, "05" + gameModel.player_1.X + ":" + gameModel.player_1.Y);
         }
 
         private void HandleResponse()
@@ -38,6 +50,7 @@ namespace Game
                 while (client.GetStream().DataAvailable)
                 {
                     string response = DataHandler.readData(client);
+                    Console.WriteLine(response);
                     string code = response.Substring(0, 2);
                     response = response.Replace(code, "");
                     string[] param = response.Split(':');
@@ -96,6 +109,7 @@ namespace Game
                                 gameModel.GameScreenView.Show();
                             }
                             modelTimer.Enabled = true;
+                            connectionTimer.Enabled = true;
                             break;
                         case "05":
                             int x;
@@ -125,7 +139,7 @@ namespace Game
         private void onTimedEvent(object obj, ElapsedEventArgs e)
         {
             gameModel.player_1.Y = Cursor.Position.Y - (gameModel.player_1.Height / 2);
-            DataHandler.writeData(client, "05" + gameModel.player_1.X + ":" + gameModel.player_1.Y);
+            
         }
     }
 }
