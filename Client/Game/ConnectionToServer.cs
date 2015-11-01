@@ -22,9 +22,12 @@ namespace Game
 
         private System.Timers.Timer modelTimer;
         private System.Timers.Timer connectionTimer;
+        [System.Runtime.InteropServices.DllImport("kernel32.dll")]
+        private static extern bool AllocConsole();
 
         public ConnectionToServer(TcpClient client)
         {
+            AllocConsole();
             this.client = client;
             new Thread(HandleResponse).Start();
 
@@ -47,6 +50,7 @@ namespace Game
                 while (client.GetStream().DataAvailable)
                 {
                     string response = DataHandler.readData(client);
+                    Console.WriteLine(response);
                     string code = response.Substring(0, 2);
                     response = response.Replace(code, "");
                     string[] param = response.Split(':');
