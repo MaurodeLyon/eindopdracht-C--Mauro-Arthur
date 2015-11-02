@@ -72,7 +72,7 @@ namespace Server
             //if ball touches players
             if ((player_1.IntersectsWith(ball) && ball_horizontal_speed < 0) || (player_2.IntersectsWith(ball) && ball_horizontal_speed > 0))
                 ball_horizontal_speed *= -1;
-            
+
 
             //if ball toches top border
             if (ball.Top < field.Top)
@@ -90,6 +90,7 @@ namespace Server
                 if (ball_horizontal_speed < 0)
                     ball_horizontal_speed = -ball_horizontal_speed;
                 score_Player_2++;
+                ball.Location = new Point(502, 374);
             }
 
             //if ball touches right border
@@ -98,6 +99,14 @@ namespace Server
                 if (ball_horizontal_speed > 0)
                     ball_horizontal_speed = -ball_horizontal_speed;
                 score_Player_1++;
+                ball.Location = new Point(502, 374);
+            }
+
+            if (score_Player_1 > 5 || score_Player_2 > 5)
+            {
+                //end game
+                modelTimer.Stop();
+                connectionTimer.Stop();
             }
         }
         string p1, p2;
