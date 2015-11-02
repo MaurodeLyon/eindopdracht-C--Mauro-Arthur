@@ -56,8 +56,8 @@ namespace Server
         private void onConnectionEvent(object sender, ElapsedEventArgs e)
         {
             //send ball,position other player and score to clients
-            DataHandler.writeData(clients[0].client, $"05 {ball.X}:{ball.Y}:{player_2.X}:{player_2.Y}:{score_Player_1}:{score_Player_2}");
-            DataHandler.writeData(clients[1].client, $"05 {ball.X}:{ball.Y}:{player_1.X}:{player_1.Y}:{score_Player_2}:{score_Player_1}");
+            DataHandler.writeData(clients[0].client, $"05 {ball.X}:{ball.Y}:{player_2.Y}:{score_Player_1}:{score_Player_2}");
+            DataHandler.writeData(clients[1].client, $"05 {ball.X}:{ball.Y}:{player_1.Y}:{score_Player_2}:{score_Player_1}");
         }
 
         public void startGame()
@@ -138,6 +138,7 @@ namespace Server
                     RoomCreated = true;
                 }
             }
+            
             while (true)
             {
                 if (player_1_ready && player_2_ready && !started)
@@ -149,19 +150,21 @@ namespace Server
                     Console.WriteLine("start game on server");
                     modelTimer.Start();
                     debugTimer.Start();
-                    connectionTimer.Start();
+                    
                     started = true;
                 }
 
                 if (player_1_ready && player_2_ready && started)
                 {
                     //send ball, position other player and score to client 1
-                    DataHandler.writeData(client_1.client, "05" + ball.X + ":" + ball.Y + ":" + player_2.Y + ":" + score_Player_1 + ":" + score_Player_2);
+                    //DataHandler.writeData(client_1.client, "05" + ball.X + ":" + ball.Y + ":" + player_2.Y + ":" + score_Player_1 + ":" + score_Player_2);
                     // send ball, position other player and score to client 2
-                    DataHandler.writeData(client_2.client, $"05{ball.X}:{ball.Y}:{player_1.Y}:{score_Player_2}:{score_Player_1}");
-
-                    Console.WriteLine($"Sending: 05{ball.X}:{ball.Y}:{player_2.X}:{player_2.Y}:{score_Player_1}:{score_Player_2}");
-                    Console.WriteLine($"Sending: 05{ball.X}:{ball.Y}:{player_1.X}:{player_1.Y}:{score_Player_2}:{score_Player_1}");
+                    //DataHandler.writeData(client_2.client, $"05{ball.X}:{ball.Y}:{player_1.Y}:{score_Player_2}:{score_Player_1}");
+                    if(connectionTimer.Enabled==false)
+                    connectionTimer.Start();
+                    //Console.WriteLine($"05{ball.X}:{ball.Y}:{player_2.X}:{player_2.Y}:{score_Player_1}:{score_Player_2}");
+                    //Console.WriteLine($"05{ball.X}:{ball.Y}:{player_1.X}:{player_1.Y}:{score_Player_2}:{score_Player_1}");
+                    //Thread.Sleep(1000);
                 }
             }
         }

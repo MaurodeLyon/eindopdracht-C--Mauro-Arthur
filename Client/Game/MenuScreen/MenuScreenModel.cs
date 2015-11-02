@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Library;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
@@ -12,11 +13,17 @@ namespace Game.MainMenuGame
     public class MainMenuModel
     {
         public MenuScreenView form;
-        public ConnectionToServer connectionToServer;
+        
+        public TcpClient client;
+
+        [System.Runtime.InteropServices.DllImport("kernel32.dll")]
+        private static extern bool AllocConsole();
 
         public MainMenuModel(MenuScreenView form)
         {
+            AllocConsole();
             this.form = form;
+           
             new Thread(connectToServer).Start();    //try to connect to server
         }
 
@@ -32,11 +39,15 @@ namespace Game.MainMenuGame
                 form.ConnectionStatusLabel.Text = "Not connected to Server";
             }
 
-            TcpClient client;
+            
             do { client = new TcpClient("127.0.0.1", 1338); }
             while (!client.Connected);
-            connectionToServer = new ConnectionToServer(client);
-            connectionToServer.menuModel = this;
+            //connectionToServer.StartConnection(client);
+            //connectionToServer.menuModel = this;
+            Thread taskMenu = new Thread(new ThreadStart(handleConnection));
+            taskMenu.Start();
+
+            
 
             if (form.ConnectionStatusLabel.InvokeRequired)
             {
@@ -46,6 +57,93 @@ namespace Game.MainMenuGame
             else
             {
                 form.ConnectionStatusLabel.Text = "Connected to Server";
+            }
+        }
+
+        private void handleConnection()
+        {
+            bool done = false;
+            while (!done)
+            {
+
+
+                string response = DataHandler.readData(client);
+                Console.WriteLine(response);
+                string code = response.Substring(0, 2);
+                response = response.Replace(code, "");
+                string[] param = response.Split(':');
+
+                switch (code)
+                {
+                    case "03":  //player ready 3:"amount"
+                        if (form.AmountConnectedLabel.InvokeRequired)
+                        {
+                            Action act = () => form.AmountConnectedLabel.Text = param[0] + "/2 players ready";
+                            form.AmountConnectedLabel.Invoke(act);
+                        }
+                        else
+                        {
+                            form.AmountConnectedLabel.Text = param[0] + "/2 players ready";
+                        }
+
+                        if (form.gameButton.InvokeRequired)
+                        {
+                            Action act = () => form.gameButton.Enabled = true;
+                            form.gameButton.Invoke(act);
+                        }
+                        else
+                        {
+                            form.gameButton.Enabled = true;
+                        }
+
+                        if (form.gameButton.InvokeRequired)
+                        {
+                            Action act = () => form.gameButton.Text = "Start game";
+                            form.gameButton.Invoke(act);
+                        }
+                        else
+                        {
+                            form.gameButton.Text = "Start game";
+                        }
+                        break;
+                    case "04":  //start the game
+                        gameModel gameModel = new gameModel(new GameScreenView(), client);
+
+                        if (form.InvokeRequired)
+                        {
+                            Action hide = () => form.Hide();
+                            Action close = () => form.Close();
+                            form.Invoke(hide);
+                            form.Invoke(close);
+                        }
+                        else
+                        {
+                            form.Hide();
+                        }
+                        if (gameModel.GameScreenView.InvokeRequired)
+                        {
+                            Action sho = () => gameModel.GameScreenView.Show();
+                            Action act = () => gameModel.GameScreenView.Activate();
+                            Action foc = () => gameModel.GameScreenView.Focus();
+                            Action inv = () => gameModel.GameScreenView.Invalidate();
+                            Action upd = () => gameModel.GameScreenView.Update();
+                            gameModel.GameScreenView.Invoke(sho);
+                            gameModel.GameScreenView.Invoke(act);
+                            gameModel.GameScreenView.Invoke(foc);
+                            gameModel.GameScreenView.Invoke(inv);
+                            gameModel.GameScreenView.Invoke(upd);
+                        }
+                        else
+                        {
+                            gameModel.GameScreenView.Show();
+                        }
+
+                        done = true;
+                        gameModel.startTimers();
+                        Application.Run(gameModel.GameScreenView);
+                        break;
+
+                }
             }
         }
     }

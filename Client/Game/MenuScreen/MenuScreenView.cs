@@ -35,7 +35,7 @@ namespace Game.MainMenuGame
 
         private void gameButton_Click(object sender, EventArgs e)
         {
-            DataHandler.writeData(model.connectionToServer.client, "04" + roomname);
+            DataHandler.writeData(model.client, "04" + roomname);
         }
 
         private void scoreboardButton_Click(object sender, EventArgs e)
@@ -53,7 +53,7 @@ namespace Game.MainMenuGame
             username = UsernameBox.Text;
             roomname = RoomnameBox.Text;
             //send to server
-            DataHandler.writeData(model.connectionToServer.client, "01" + username + ":" + roomname);
+            DataHandler.writeData(model.client, "01" + username + ":" + roomname);
         }
 
         private void JoinButton_Click(object sender, EventArgs e)
@@ -61,7 +61,7 @@ namespace Game.MainMenuGame
             username = UsernameBox.Text;
             roomname = RoomnameBox.Text;
             //send to server
-            DataHandler.writeData(model.connectionToServer.client, "02" + username + ":" + roomname);
+            DataHandler.writeData(model.client, "02" + username + ":" + roomname);
         }
     }
 }
