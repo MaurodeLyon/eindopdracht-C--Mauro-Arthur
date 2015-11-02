@@ -58,6 +58,12 @@ namespace Server
             DataHandler.SendString(clients[1].client, $"05 {ball.X}:{ball.Y}:{player_1.Y}:{score_Player_2}:{score_Player_1}");
         }
 
+        private void sendEnd()
+        {
+            DataHandler.SendString(clients[0].client, "06" + score_Player_1 + ":" + score_Player_2);
+            DataHandler.SendString(clients[1].client, "06" + score_Player_1 + ":" + score_Player_2);
+        }
+
         public void startGame()
         {
             new Thread(handleGame).Start();
@@ -107,8 +113,7 @@ namespace Server
                 //end game
                 modelTimer.Stop();
                 connectionTimer.Stop();
-                DataHandler.SendString(clients[0].client, "06" + score_Player_1 + ":" + score_Player_2);
-                DataHandler.SendString(clients[1].client, "06" + score_Player_1 + ":" + score_Player_2);
+                new Thread(sendEnd).Start();
             }
         }
         string p1, p2;
