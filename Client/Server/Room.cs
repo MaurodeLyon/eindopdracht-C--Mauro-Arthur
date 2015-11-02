@@ -28,8 +28,8 @@ namespace Server
         private int ball_horizontal_speed = 2;
         private int ball_vertical_speed = 2;
 
-        public int score_Player_1 = 0;
-        public int score_Player_2 = 0;
+        public int score_Player_1 = 5;
+        public int score_Player_2 = 5;
 
         private System.Timers.Timer modelTimer;
         private System.Timers.Timer connectionTimer;
@@ -40,8 +40,8 @@ namespace Server
         {
             this.roomname = roomname;
             this.clients = new List<GameClient>();
-            modelTimer = new System.Timers.Timer(10);
-            connectionTimer = new System.Timers.Timer(10);
+            modelTimer = new System.Timers.Timer(50);
+            connectionTimer = new System.Timers.Timer(50);
             connectionTimer.Elapsed += onConnectionEvent;
             modelTimer.Elapsed += onTimedEvent;
 
@@ -107,6 +107,8 @@ namespace Server
                 //end game
                 modelTimer.Stop();
                 connectionTimer.Stop();
+                DataHandler.writeData(clients[0].client, "6" + score_Player_1 + ":" + score_Player_2);
+                DataHandler.writeData(clients[1].client, "6" + score_Player_1 + ":" + score_Player_2);
             }
         }
         string p1, p2;

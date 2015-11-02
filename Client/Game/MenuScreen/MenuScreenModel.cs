@@ -13,7 +13,7 @@ namespace Game.MainMenuGame
     public class MainMenuModel
     {
         public MenuScreenView form;
-        
+
         public TcpClient client;
 
         [System.Runtime.InteropServices.DllImport("kernel32.dll")]
@@ -23,7 +23,7 @@ namespace Game.MainMenuGame
         {
             AllocConsole();
             this.form = form;
-           
+
             new Thread(connectToServer).Start();    //try to connect to server
         }
 
@@ -39,7 +39,7 @@ namespace Game.MainMenuGame
                 form.ConnectionStatusLabel.Text = "Not connected to Server";
             }
 
-            
+
             do { client = new TcpClient("127.0.0.1", 1338); }
             while (!client.Connected);
             //connectionToServer.StartConnection(client);
@@ -47,7 +47,7 @@ namespace Game.MainMenuGame
             Thread taskMenu = new Thread(new ThreadStart(handleConnection));
             taskMenu.Start();
 
-            
+
 
             if (form.ConnectionStatusLabel.InvokeRequired)
             {
@@ -123,15 +123,7 @@ namespace Game.MainMenuGame
                         if (gameModel.GameScreenView.InvokeRequired)
                         {
                             Action sho = () => gameModel.GameScreenView.Show();
-                            Action act = () => gameModel.GameScreenView.Activate();
-                            Action foc = () => gameModel.GameScreenView.Focus();
-                            Action inv = () => gameModel.GameScreenView.Invalidate();
-                            Action upd = () => gameModel.GameScreenView.Update();
                             gameModel.GameScreenView.Invoke(sho);
-                            gameModel.GameScreenView.Invoke(act);
-                            gameModel.GameScreenView.Invoke(foc);
-                            gameModel.GameScreenView.Invoke(inv);
-                            gameModel.GameScreenView.Invoke(upd);
                         }
                         else
                         {

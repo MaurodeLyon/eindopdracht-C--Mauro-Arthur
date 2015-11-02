@@ -1,4 +1,5 @@
-﻿using Library;
+﻿using Game.EndScreen;
+using Library;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -98,6 +99,11 @@ namespace Game
                     score_Player_2 = param[4];
                 }
 
+                if (code == "06")
+                {
+                    EndScreenView endScreen = new EndScreenView(Int32.Parse(score_Player_1), Int32.Parse(score_Player_2));
+                    Application.Run(endScreen);
+                }
             }
         }
 
