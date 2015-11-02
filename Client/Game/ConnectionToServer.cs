@@ -84,7 +84,6 @@ namespace Game
                         break;
                     case "04":  //start the game
                         gameModel = new gameModel(new GameScreenView());
-
                         if (menuModel.form.InvokeRequired)
                         {
                             Action hide = () => menuModel.form.Hide();
@@ -99,15 +98,7 @@ namespace Game
                         if (gameModel.GameScreenView.InvokeRequired)
                         {
                             Action sho = () => gameModel.GameScreenView.Show();
-                            Action act = () => gameModel.GameScreenView.Activate();
-                            Action foc = () => gameModel.GameScreenView.Focus();
-                            Action inv = () => gameModel.GameScreenView.Invalidate();
-                            Action upd = () => gameModel.GameScreenView.Update();
                             gameModel.GameScreenView.Invoke(sho);
-                            gameModel.GameScreenView.Invoke(act);
-                            gameModel.GameScreenView.Invoke(foc);
-                            gameModel.GameScreenView.Invoke(inv);
-                            gameModel.GameScreenView.Invoke(upd);
                         }
                         else
                         {
