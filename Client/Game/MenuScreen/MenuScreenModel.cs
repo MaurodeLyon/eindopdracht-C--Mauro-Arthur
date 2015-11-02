@@ -13,7 +13,6 @@ namespace Game.MainMenuGame
     public class MainMenuModel
     {
         public MenuScreenView form;
-
         public TcpClient client;
         public bool done;
 
@@ -24,7 +23,6 @@ namespace Game.MainMenuGame
         {
             AllocConsole();
             this.form = form;
-
             new Thread(connectToServer).Start();    //try to connect to server
         }
 

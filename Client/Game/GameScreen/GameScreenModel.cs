@@ -16,8 +16,6 @@ namespace Game
     public class gameModel
     {
         public GameScreenView GameScreenView;
-        public FakeServerTest fakeServerTest;
-        public ConnectionToServer connectionToServer;
 
         public Rectangle player_1;
         public Rectangle player_2;

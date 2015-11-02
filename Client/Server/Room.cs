@@ -20,14 +20,12 @@ namespace Server
 
         //Game Objects
         public Rectangle field;
-
         public Rectangle player_1;
         public Rectangle player_2;
-
         public Rectangle ball;
+
         private int ball_horizontal_speed = 4;
         private int ball_vertical_speed = 4;
-
         public int score_Player_1 = 5;
         public int score_Player_2 = 5;
 

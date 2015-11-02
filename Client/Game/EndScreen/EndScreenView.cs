@@ -14,7 +14,6 @@ namespace Game.EndScreen
 {
     public partial class EndScreenView : Form
     {
-        private EndScreenModel endScreemModel;
 
         public EndScreenView(int score1, int score2)
         {
@@ -27,7 +26,6 @@ namespace Game.EndScreen
             this.TopMost = true;                            //set form to the front
             this.Bounds = Screen.PrimaryScreen.Bounds;      //set fullscreen
             this.WindowState = FormWindowState.Maximized;   //set fullscreen
-            endScreemModel = new EndScreenModel(this);
             scoreP1.Text = score1.ToString();
             scoreP2.Text = score2.ToString();
         }

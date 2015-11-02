@@ -32,8 +32,6 @@ namespace Game.MainMenuGame
             this.WindowState = FormWindowState.Maximized;   //set fullscreen
         }
 
-
-
         private void gameButton_Click(object sender, EventArgs e)
         {
             DataHandler.SendString(model.client, "04" + roomname);

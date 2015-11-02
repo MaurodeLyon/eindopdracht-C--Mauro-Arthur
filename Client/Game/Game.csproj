@@ -47,7 +47,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConnectionToServer.cs" />
     <Compile Include="GameScreen\GameScreenModel.cs" />
     <Compile Include="GameScreen\GameScreenView.cs">
       <SubType>Form</SubType>
@@ -55,14 +54,12 @@
     <Compile Include="GameScreen\GameScreenView.Designer.cs">
       <DependentUpon>GameScreenView.cs</DependentUpon>
     </Compile>
-    <Compile Include="EndScreen\EndScreenModel.cs" />
     <Compile Include="EndScreen\EndScreenView.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="EndScreen\EndScreenView.Designer.cs">
       <DependentUpon>EndScreenView.cs</DependentUpon>
     </Compile>
-    <Compile Include="FakeServerTest.cs" />
     <Compile Include="MenuScreen\MenuScreenModel.cs" />
     <Compile Include="MenuScreen\MenuScreenView.cs">
       <SubType>Form</SubType>
