@@ -1,4 +1,5 @@
-﻿using Game.MainMenuGame;
+﻿using Game.EndScreen;
+using Game.MainMenuGame;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,11 +16,11 @@ namespace Game
         [STAThread]
         static void Main()
         {
-           
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MenuScreenView());
             //Application.Run(new GameScreenView());
+            //Application.Run(new EndScreenView(6, 3));
         }
     }
 }

@@ -28,8 +28,8 @@ namespace Server
         private int ball_horizontal_speed = 2;
         private int ball_vertical_speed = 2;
 
-        public int score_Player_1 = 0;
-        public int score_Player_2 = 0;
+        public int score_Player_1 = 5;
+        public int score_Player_2 = 5;
 
         private System.Timers.Timer modelTimer;
         private System.Timers.Timer connectionTimer;
@@ -41,7 +41,7 @@ namespace Server
             this.roomname = roomname;
             this.clients = new List<GameClient>();
             modelTimer = new System.Timers.Timer(10);
-            connectionTimer = new System.Timers.Timer(10);
+            connectionTimer = new System.Timers.Timer(20);
             connectionTimer.Elapsed += onConnectionEvent;
             modelTimer.Elapsed += onTimedEvent;
 
@@ -54,8 +54,8 @@ namespace Server
         private void onConnectionEvent(object sender, ElapsedEventArgs e)
         {
             //send ball,position other player and score to clients
-            DataHandler.writeData(clients[0].client, $"05 {ball.X}:{ball.Y}:{player_2.Y}:{score_Player_1}:{score_Player_2}");
-            DataHandler.writeData(clients[1].client, $"05 {ball.X}:{ball.Y}:{player_1.Y}:{score_Player_2}:{score_Player_1}");
+            DataHandler.SendString(clients[0].client, $"05 {ball.X}:{ball.Y}:{player_2.Y}:{score_Player_1}:{score_Player_2}");
+            DataHandler.SendString(clients[1].client, $"05 {ball.X}:{ball.Y}:{player_1.Y}:{score_Player_2}:{score_Player_1}");
         }
 
         public void startGame()
@@ -107,6 +107,8 @@ namespace Server
                 //end game
                 modelTimer.Stop();
                 connectionTimer.Stop();
+                DataHandler.SendString(clients[0].client, "06" + score_Player_1 + ":" + score_Player_2);
+                DataHandler.SendString(clients[1].client, "06" + score_Player_1 + ":" + score_Player_2);
             }
         }
         string p1, p2;
@@ -119,7 +121,7 @@ namespace Server
             Console.WriteLine("Starting games on client");
             while (!starting)
             {
-                string command = DataHandler.readData(clients[0].client);
+                string command = DataHandler.ReadString(clients[0].client);
 
                 Console.WriteLine(command);
                 Console.WriteLine(command.Substring(0, 2));
@@ -132,7 +134,7 @@ namespace Server
                     p1R = true;
                 }
 
-                string command2 = DataHandler.readData(clients[1].client);
+                string command2 = DataHandler.ReadString(clients[1].client);
 
                 Console.WriteLine(command2);
                 Console.WriteLine(command2.Substring(0, 2));
@@ -144,8 +146,8 @@ namespace Server
                 if (p1R == true && p2R == true)
                 {
                     starting = true;
-                    DataHandler.writeData(clients[0].client, "04");
-                    DataHandler.writeData(clients[1].client, "04");
+                    DataHandler.SendString(clients[0].client, "04");
+                    DataHandler.SendString(clients[1].client, "04");
                     modelTimer.Start();
                     connectionTimer.Start();
                 }
@@ -198,7 +200,7 @@ namespace Server
             while (true)
             {
                 TcpClient client = obj as TcpClient;
-                p1 = DataHandler.readData(client);
+                p1 = DataHandler.ReadString(client);
                 Console.WriteLine("p1" + p1);
             }
         }
@@ -208,7 +210,7 @@ namespace Server
             while (true)
             {
                 TcpClient client = obj as TcpClient;
-                p2 = DataHandler.readData(client);
+                p2 = DataHandler.ReadString(client);
                 Console.WriteLine("p2" + p2);
             }
         }

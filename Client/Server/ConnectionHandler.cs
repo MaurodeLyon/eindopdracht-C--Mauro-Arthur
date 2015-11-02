@@ -39,7 +39,7 @@ namespace Server
             while (!done)
             {
                 TcpClient client = obj as TcpClient;
-                string data = DataHandler.readData(client);     //EXAMPLE 01 username:roomname
+                string data = DataHandler.ReadString(client);     //EXAMPLE 01 username:roomname
                 Console.WriteLine($"Received data : {data}");
                 string[] param;
                 string command = data.Substring(0, 2);
@@ -54,7 +54,7 @@ namespace Server
                         {
                             if (room.roomname == param[1])
                             {
-                                DataHandler.writeData(room.clients[0].client, "03" + room.clients.Count);
+                                DataHandler.SendString(room.clients[0].client, "03" + room.clients.Count);
                                 Console.WriteLine("room " + param[1] + " created");
                                 room.startGame();
                             }
@@ -70,8 +70,8 @@ namespace Server
                         {
                             if (room.roomname == param[1])
                             {
-                                DataHandler.writeData(room.clients[0].client, "03" + room.clients.Count);
-                                DataHandler.writeData(room.clients[1].client, "03" + room.clients.Count);
+                                DataHandler.SendString(room.clients[0].client, "03" + room.clients.Count);
+                                DataHandler.SendString(room.clients[1].client, "03" + room.clients.Count);
                                 Console.WriteLine("joined room " + param[1]);
                             }
                         }

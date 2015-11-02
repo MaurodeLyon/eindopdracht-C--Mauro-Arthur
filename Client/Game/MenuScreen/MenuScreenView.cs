@@ -25,17 +25,17 @@ namespace Game.MainMenuGame
             float scaleY = ((float)Screen.PrimaryScreen.WorkingArea.Height / 768);
             SizeF aSf = new SizeF(scaleX, scaleY);
             this.Scale(aSf);
-            //this.FormBorderStyle = FormBorderStyle.None;    //remove borders
-            //this.TopMost = true;                            //set form to the front
-            //this.Bounds = Screen.PrimaryScreen.Bounds;      //set fullscreen
-            //this.WindowState = FormWindowState.Maximized;   //set fullscreen
+            this.FormBorderStyle = FormBorderStyle.None;    //remove borders
+            this.TopMost = true;                            //set form to the front
+            this.Bounds = Screen.PrimaryScreen.Bounds;      //set fullscreen
+            this.WindowState = FormWindowState.Maximized;   //set fullscreen
         }
 
-        
+
 
         private void gameButton_Click(object sender, EventArgs e)
         {
-            DataHandler.writeData(model.client, "04" + roomname);
+            DataHandler.SendString(model.client, "04" + roomname);
         }
 
         private void scoreboardButton_Click(object sender, EventArgs e)
@@ -53,7 +53,7 @@ namespace Game.MainMenuGame
             username = UsernameBox.Text;
             roomname = RoomnameBox.Text;
             //send to server
-            DataHandler.writeData(model.client, "01" + username + ":" + roomname);
+            DataHandler.SendString(model.client, "01" + username + ":" + roomname);
         }
 
         private void JoinButton_Click(object sender, EventArgs e)
@@ -61,7 +61,7 @@ namespace Game.MainMenuGame
             username = UsernameBox.Text;
             roomname = RoomnameBox.Text;
             //send to server
-            DataHandler.writeData(model.client, "02" + username + ":" + roomname);
+            DataHandler.SendString(model.client, "02" + username + ":" + roomname);
         }
     }
 }

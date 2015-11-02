@@ -31,7 +31,6 @@ namespace Game
             this.TopMost = true;                            //set form to the front
             this.Bounds = Screen.PrimaryScreen.Bounds;      //set fullscreen
             this.WindowState = FormWindowState.Maximized;   //set fullscreen
-            //gameModel = new gameModel(this); in comments gezet omdat er anders 2 gamemodels worden aangemaakt.
             viewTimer.Start();
         }
 
