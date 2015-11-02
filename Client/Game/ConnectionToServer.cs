@@ -15,6 +15,7 @@ namespace Game
 {
     public class ConnectionToServer
     {
+
         //public TcpClient client;
         //public MainMenuModel menuModel;
         //public gameModel gameModel;
@@ -161,5 +162,7 @@ namespace Game
         //{
         //    gameModel.player_1.Y = Cursor.Position.Y - (gameModel.player_1.Height / 2);
         //}
+
+        
     }
 }

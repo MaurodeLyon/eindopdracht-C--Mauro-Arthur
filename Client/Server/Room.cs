@@ -165,6 +165,9 @@ namespace Server
                     //Console.WriteLine($"05{ball.X}:{ball.Y}:{player_2.X}:{player_2.Y}:{score_Player_1}:{score_Player_2}");
                     //Console.WriteLine($"05{ball.X}:{ball.Y}:{player_1.X}:{player_1.Y}:{score_Player_2}:{score_Player_1}");
                     //Thread.Sleep(1000);
+
+                 
+
                 }
             }
         }
