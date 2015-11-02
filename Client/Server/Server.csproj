@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConnectionHandler.cs" />
+    <Compile Include="FileIO.cs" />
     <Compile Include="GameClient.cs" />
     <Compile Include="GameData.cs" />
     <Compile Include="Program.cs" />

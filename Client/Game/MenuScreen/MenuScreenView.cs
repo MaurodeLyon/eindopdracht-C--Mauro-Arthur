@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Library;
+using Game.ScoreBoardScreen;
 
 namespace Game.MainMenuGame
 {
@@ -41,6 +42,9 @@ namespace Game.MainMenuGame
         private void scoreboardButton_Click(object sender, EventArgs e)
         {
             // insert score screen
+            ScoreboardModel model2 = new ScoreboardModel(new ScoreboardView(),model.client);
+            model.done = true;
+            model2.view.ShowDialog();
         }
 
         private void exitGameButton_Click(object sender, EventArgs e)
@@ -54,6 +58,7 @@ namespace Game.MainMenuGame
             roomname = RoomnameBox.Text;
             //send to server
             DataHandler.SendString(model.client, "01" + username + ":" + roomname);
+            scoreboardButton.Enabled = false;
         }
 
         private void JoinButton_Click(object sender, EventArgs e)
@@ -62,6 +67,7 @@ namespace Game.MainMenuGame
             roomname = RoomnameBox.Text;
             //send to server
             DataHandler.SendString(model.client, "02" + username + ":" + roomname);
+            scoreboardButton.Enabled = false;
         }
     }
 }

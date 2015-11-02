@@ -15,6 +15,7 @@ namespace Game.MainMenuGame
         public MenuScreenView form;
 
         public TcpClient client;
+        public bool done;
 
         [System.Runtime.InteropServices.DllImport("kernel32.dll")]
         private static extern bool AllocConsole();
@@ -62,7 +63,7 @@ namespace Game.MainMenuGame
 
         private void handleConnection()
         {
-            bool done = false;
+            done = false;
             while (!done)
             {
 

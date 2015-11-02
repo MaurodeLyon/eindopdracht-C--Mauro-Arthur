@@ -91,6 +91,17 @@ namespace Server
                     //    }
                     //    done = true;
                     //    break;
+                    case "07":
+                        Console.WriteLine("laoding");
+                        List<String> contents = FileIO.read();
+
+                        Console.WriteLine(contents[0]);
+                        foreach(String e in contents)
+                        {
+                            DataHandler.SendString(client, "07"+ e);
+                        }
+                        DataHandler.SendString(client, "07 END");
+                        break;
                 }
             }
         }

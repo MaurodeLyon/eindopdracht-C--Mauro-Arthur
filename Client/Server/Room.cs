@@ -111,6 +111,7 @@ namespace Server
             if (score_Player_1 > 5 || score_Player_2 > 5)
             {
                 //end game
+                FileIO.save(clients[0].username + "-" + clients[1].username + ":" + score_Player_1 + " - " + score_Player_2);
                 modelTimer.Stop();
                 connectionTimer.Stop();
                 new Thread(sendEnd).Start();
