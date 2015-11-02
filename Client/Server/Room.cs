@@ -32,32 +32,22 @@ namespace Server
         public int score_Player_2 = 0;
 
         private System.Timers.Timer modelTimer;
-
         private System.Timers.Timer debugTimer;
-
         private System.Timers.Timer connectionTimer;
 
-        private Boolean p1R = false, p2R = false;
 
 
         public Room(string roomname)
         {
             this.roomname = roomname;
             this.clients = new List<GameClient>();
-
             modelTimer = new System.Timers.Timer(10);
-
-            modelTimer.Elapsed += onTimedEvent;
-
             debugTimer = new System.Timers.Timer(1000);
-
             connectionTimer = new System.Timers.Timer(50);
 
-            connectionTimer.Elapsed += onConnectionEvent;
-
+            modelTimer.Elapsed += onTimedEvent;
             debugTimer.Elapsed += onDebugEvent;
-
-
+            connectionTimer.Elapsed += onConnectionEvent;
 
             field = new Rectangle(0, 0, 1024, 768);
             ball = new Rectangle(field.Width / 2 - 10, field.Height / 2 - 10, 20, 20);
@@ -65,10 +55,9 @@ namespace Server
 
         private void onConnectionEvent(object sender, ElapsedEventArgs e)
         {
+            //send ball,position other player and score to clients
             DataHandler.writeData(clients[0].client, $"05 {ball.X}:{ball.Y}:{player_2.X}:{player_2.Y}:{score_Player_1}:{score_Player_2}");
-            //send ball,position other player and score to client 2
             DataHandler.writeData(clients[1].client, $"05 {ball.X}:{ball.Y}:{player_1.X}:{player_1.Y}:{score_Player_2}:{score_Player_1}");
-            //Co
         }
 
         public void startGame()
@@ -117,115 +106,109 @@ namespace Server
                 score_Player_1++;
             }
         }
+
         string p1, p2;
         Thread t1;
         Thread t2;
+        private bool player_1_ready = false;
+        private bool player_2_ready = false;
+        private bool started = false;
+        private GameClient client_1;
+        private GameClient client_2;
 
         public void handleGame()
         {
-            bool starting = false;
-            Console.WriteLine("Starting games on client");
-            while (!starting)
+            bool RoomCreated = false;
+            while (!RoomCreated)
             {
-                string command = DataHandler.readData(clients[0].client);
-
-
-                Console.WriteLine(command);
-                Console.WriteLine(command.Substring(0, 2));
-
-
-                if (command.Substring(0, 2) == "04")
+                if (clients.Count == 2)
                 {
-                    //DataHandler.writeData(clients[0].client, "04");
-                    //DataHandler.writeData(clients[1].client, "04");
-                    //starting = true;
-                    p1R = true;
-
+                    client_1 = clients[0];
+                    client_2 = clients[1];
+                    t1 = new Thread(ReadData1);
+                    t2 = new Thread(ReadData2);
+                    if (!t1.IsAlive)
+                    {
+                        t1.Start(client_1.client);
+                    }
+                    if (!t2.IsAlive)
+                    {
+                        t2.Start(client_2.client);
+                    }
+                    RoomCreated = true;
                 }
-
-                string command2 = DataHandler.readData(clients[1].client);
-
-                Console.WriteLine(command2);
-                Console.WriteLine(command2.Substring(0, 2));
-                if (command2.Substring(0, 2) == "04")
+            }
+            while (true)
+            {
+                if (player_1_ready && player_2_ready && !started)
                 {
-                    p2R = true;
-                }
+                    Console.WriteLine("Starting game on clients");
+                    DataHandler.writeData(client_1.client, "04");
+                    DataHandler.writeData(client_2.client, "04");
 
-                if (p1R == true && p2R == true)
-                {
-                    starting = true;
-                    DataHandler.writeData(clients[0].client, "04");
-                    DataHandler.writeData(clients[1].client, "04");
+                    Console.WriteLine("start game on server");
                     modelTimer.Start();
                     debugTimer.Start();
                     connectionTimer.Start();
+                    started = true;
+                }
+
+                if (player_1_ready && player_2_ready && started)
+                {
+                    //send ball, position other player and score to client 1
+                    DataHandler.writeData(client_1.client, "05" + ball.X + ":" + ball.Y + ":" + player_2.Y + ":" + score_Player_1 + ":" + score_Player_2);
+                    // send ball, position other player and score to client 2
+                    DataHandler.writeData(client_2.client, $"05{ball.X}:{ball.Y}:{player_1.Y}:{score_Player_2}:{score_Player_1}");
+
+                    Console.WriteLine($"Sending: 05{ball.X}:{ball.Y}:{player_2.X}:{player_2.Y}:{score_Player_1}:{score_Player_2}");
+                    Console.WriteLine($"Sending: 05{ball.X}:{ball.Y}:{player_1.X}:{player_1.Y}:{score_Player_2}:{score_Player_1}");
                 }
             }
-
-            bool done = false;
-            Console.WriteLine("starting game on server");
-
-            //HANDLE UPDATING AND SENDING INFORMATION
-            GameClient client_1 = clients[0];
-            GameClient client_2 = clients[1];
-            t1 = new Thread(ReadData1);
-            t2 = new Thread(ReadData2);
-            while (!done)
-            {
-                if (!t1.IsAlive)
-                    t1.Start(client_1.client);
-                if (!t2.IsAlive)
-                    t2.Start(client_2.client);
-
-                if (p1 != null)
-                    p1 = p1.Replace("05", "");
-                if (p2 != null)
-                    p2 = p2.Replace("05", "");
-                int x;
-                int y;
-                if (p1 != null)
-                {
-                    string[] p1Param = p1.Split(':');
-                    int.TryParse(p1Param[0], out y);
-                    player_1.Y = y;
-                }
-
-                if (p2 != null)
-                {
-                    string[] p2Param = p2.Split(':');
-                    int.TryParse(p2Param[0], out y);
-                    player_2.Y = y;
-                }
-
-                //send ball, position other player and score to client 1
-                DataHandler.writeData(client_1.client, "05" + ball.X + ":" + ball.Y + ":" + player_2.Y + ":" + score_Player_1 + ":" + score_Player_2);
-                // send ball, position other player and score to client 2
-                DataHandler.writeData(client_2.client, $"05{ball.X}:{ball.Y}:{player_1.Y}:{score_Player_2}:{score_Player_1}");
-
-                Console.WriteLine($"Sending: 05{ball.X}:{ball.Y}:{player_2.X}:{player_2.Y}:{score_Player_1}:{score_Player_2}");
-                Console.WriteLine($"Sending: 05{ball.X}:{ball.Y}:{player_1.X}:{player_1.Y}:{score_Player_2}:{score_Player_1}");
-            }
-
         }
 
         private void ReadData1(object obj)
         {
+            TcpClient client = obj as TcpClient;
             while (true)
             {
-                TcpClient client = obj as TcpClient;
                 p1 = DataHandler.readData(client);
-                Console.WriteLine("p1" + p1);
+                Console.WriteLine("Received command player 1: " + p1);
+                if (p1.Substring(0, 2) == "04")
+                {
+                    player_1_ready = true;
+                }
+
+                if (p1 != null && p1.Substring(0, 2) == "05")
+                {
+                    p1 = p1.Replace("05", "");
+                    int y;
+                    string[] p1Param = p1.Split(':');
+                    int.TryParse(p1Param[0], out y);
+                    player_1.Y = y;
+                }
             }
         }
 
         private void ReadData2(object obj)
         {
+            TcpClient client = obj as TcpClient;
             while (true)
             {
-                TcpClient client = obj as TcpClient;
                 p2 = DataHandler.readData(client);
-                Console.WriteLine("p2" + p2);
+                Console.WriteLine("Received command player 2: " + p2);
+                if (p2.Substring(0, 2) == "04")
+                {
+                    player_2_ready = true;
+                }
+
+                if (p2 != null && p2.Substring(0, 2) == "05")
+                {
+                    p2 = p2.Replace("05", "");
+                    int y;
+                    string[] p2Param = p2.Split(':');
+                    int.TryParse(p2Param[0], out y);
+                    player_2.Y = y;
+                }
             }
         }
     }
