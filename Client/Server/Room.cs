@@ -46,7 +46,7 @@ namespace Server
             this.clients = new List<GameClient>();
 
             modelTimer = new System.Timers.Timer(10);
-            
+
             modelTimer.Elapsed += onTimedEvent;
 
             debugTimer = new System.Timers.Timer(1000);
@@ -128,12 +128,12 @@ namespace Server
             while (!starting)
             {
                 string command = DataHandler.readData(clients[0].client);
-               
+
 
                 Console.WriteLine(command);
                 Console.WriteLine(command.Substring(0, 2));
 
-               
+
                 if (command.Substring(0, 2) == "04")
                 {
                     //DataHandler.writeData(clients[0].client, "04");
@@ -147,12 +147,12 @@ namespace Server
 
                 Console.WriteLine(command2);
                 Console.WriteLine(command2.Substring(0, 2));
-                if (command2.Substring(0,2)=="04")
+                if (command2.Substring(0, 2) == "04")
                 {
                     p2R = true;
                 }
 
-                if(p1R==true && p2R ==true)
+                if (p1R == true && p2R == true)
                 {
                     starting = true;
                     DataHandler.writeData(clients[0].client, "04");
@@ -178,52 +178,41 @@ namespace Server
                 if (!t2.IsAlive)
                     t2.Start(client_2.client);
 
-                if(p1!=null)
-                p1 = p1.Replace("05", "");
-                if(p2!=null)
-                p2 = p2.Replace("05", "");
+                if (p1 != null)
+                    p1 = p1.Replace("05", "");
+                if (p2 != null)
+                    p2 = p2.Replace("05", "");
                 int x;
                 int y;
                 if (p1 != null)
                 {
-
-
                     string[] p1Param = p1.Split(':');
-
-                    int.TryParse(p1Param[0], out x);
-                    int.TryParse(p1Param[1], out y);
-                    player_1.X = x;
+                    int.TryParse(p1Param[0], out y);
                     player_1.Y = y;
                 }
 
                 if (p2 != null)
                 {
-
-
                     string[] p2Param = p2.Split(':');
-
-                    int.TryParse(p2Param[0], out x);
-                    int.TryParse(p2Param[1], out y);
-                    player_2.X = x;
+                    int.TryParse(p2Param[0], out y);
                     player_2.Y = y;
                 }
-                //send ball,position other player and score to client 1
-               // DataHandler.writeData(client_1.client, $"05 {ball.X}:{ball.Y}:{player_2.X}:{player_2.Y}:{score_Player_1}:{score_Player_2}");
-                //send ball,position other player and score to client 2
-                //DataHandler.writeData(client_2.client, $"05 {ball.X}:{ball.Y}:{player_1.X}:{player_1.Y}:{score_Player_2}:{score_Player_1}");
-                //Console.WriteLine($"05 {ball.X}:{ball.Y}:{player_2.X}:{player_2.Y}:{score_Player_1}:{score_Player_2}");
-                //send ball,position other player and score to client 2
-               // Console.WriteLine($"05 {ball.X}:{ball.Y}:{player_1.X}:{player_1.Y}:{score_Player_2}:{score_Player_1}");
+
+                //send ball, position other player and score to client 1
+                DataHandler.writeData(client_1.client, "05" + ball.X + ":" + ball.Y + ":" + player_2.Y + ":" + score_Player_1 + ":" + score_Player_2);
+                // send ball, position other player and score to client 2
+                DataHandler.writeData(client_2.client, $"05{ball.X}:{ball.Y}:{player_1.Y}:{score_Player_2}:{score_Player_1}");
+
+                Console.WriteLine($"Sending: 05{ball.X}:{ball.Y}:{player_2.X}:{player_2.Y}:{score_Player_1}:{score_Player_2}");
+                Console.WriteLine($"Sending: 05{ball.X}:{ball.Y}:{player_1.X}:{player_1.Y}:{score_Player_2}:{score_Player_1}");
             }
-        
+
         }
 
         private void ReadData1(object obj)
         {
             while (true)
             {
-
-
                 TcpClient client = obj as TcpClient;
                 p1 = DataHandler.readData(client);
                 Console.WriteLine("p1" + p1);
@@ -234,8 +223,6 @@ namespace Server
         {
             while (true)
             {
-
-
                 TcpClient client = obj as TcpClient;
                 p2 = DataHandler.readData(client);
                 Console.WriteLine("p2" + p2);

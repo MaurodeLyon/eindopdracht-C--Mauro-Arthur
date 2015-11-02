@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace Game.MainMenuGame
 {
-    class MainMenuModel
+    public class MainMenuModel
     {
         public MenuScreenView form;
         public ConnectionToServer connectionToServer;

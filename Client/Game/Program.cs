@@ -18,6 +18,7 @@ namespace Game
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MenuScreenView());
+            //Application.Run(new GameScreenView());
         }
     }
 }

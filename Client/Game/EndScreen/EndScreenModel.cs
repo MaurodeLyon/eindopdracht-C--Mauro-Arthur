@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Game.EndScreen
 {
-    class EndScreenModel
+    public class EndScreenModel
     {
         private EndScreenView endScreenView;
 

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows.Forms;
 
 namespace Game
@@ -23,12 +24,12 @@ namespace Game
             float scaleY = ((float)Screen.PrimaryScreen.WorkingArea.Height / 768);
             SizeF aSf = new SizeF(scaleX, scaleY);
             this.Scale(aSf);
-            //this.FormBorderStyle = FormBorderStyle.None;    //remove borders
-            //this.TopMost = true;                            //set form to the front
-            //this.Bounds = Screen.PrimaryScreen.Bounds;      //set fullscreen
-            //this.WindowState = FormWindowState.Maximized;   //set fullscreen
+            this.FormBorderStyle = FormBorderStyle.None;    //remove borders
+            this.TopMost = true;                            //set form to the front
+            this.Bounds = Screen.PrimaryScreen.Bounds;      //set fullscreen
+            this.WindowState = FormWindowState.Maximized;   //set fullscreen
             gameModel = new gameModel(this);
-            viewTimer.Enabled = true;
+            viewTimer.Start();
         }
 
         private void field_Paint(object sender, PaintEventArgs e)

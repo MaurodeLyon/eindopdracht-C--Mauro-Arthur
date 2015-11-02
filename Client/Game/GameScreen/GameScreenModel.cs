@@ -16,6 +16,7 @@ namespace Game
     {
         public GameScreenView GameScreenView;
         public FakeServerTest fakeServerTest;
+        public ConnectionToServer connectionToServer;
 
         public Rectangle player_1;
         public Rectangle player_2;
@@ -26,12 +27,14 @@ namespace Game
 
         public gameModel(GameScreenView GameScreenView)
         {
-            this.GameScreenView = GameScreenView;
             player_1 = new Rectangle(GameScreenView.field.Width / 20, GameScreenView.field.Height / 2 - 50, 25, 100);
             player_2 = new Rectangle(GameScreenView.field.Width - GameScreenView.field.Width / 20, GameScreenView.field.Height / 2 - 50, 25, 100);
             ball = new Rectangle(GameScreenView.field.Width / 2 - 10, GameScreenView.field.Height / 2 - 10, 20, 20);
             score_Player_1 = "0";
             score_Player_2 = "0";
+            GameScreenView.Refresh();
+            this.GameScreenView = GameScreenView;
+            GameScreenView.gameModel = this;
         }
 
     }
