@@ -27,5 +27,10 @@ namespace Game.EndScreen
             this.WindowState = FormWindowState.Maximized;   //set fullscreen
             endScreemModel = new EndScreenModel(this);
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
