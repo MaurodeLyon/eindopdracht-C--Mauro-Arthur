@@ -28,11 +28,11 @@ namespace Game
         private System.Timers.Timer modelTimer;
         private System.Timers.Timer connectionTimer;
 
-        public gameModel(GameScreenView GameScreenView,TcpClient client)
+        public gameModel(GameScreenView GameScreenView, TcpClient client)
         {
-            player_1 = new Rectangle(GameScreenView.field.Width / 20, GameScreenView.field.Height / 2 - 50, 25, 100);
-            player_2 = new Rectangle(GameScreenView.field.Width - GameScreenView.field.Width / 20, GameScreenView.field.Height / 2 - 50, 25, 100);
-            ball = new Rectangle(GameScreenView.field.Width / 2 - 10, GameScreenView.field.Height / 2 - 10, 20, 20);
+            player_1 = new Rectangle(GameScreenView.gamesizeX / 20 - 25, GameScreenView.gamesizeY / 2 - 50, 25, 100);
+            player_2 = new Rectangle(GameScreenView.gamesizeX - GameScreenView.gamesizeX / 20, GameScreenView.gamesizeY / 2 - 50, 25, 100);
+            ball = new Rectangle(GameScreenView.gamesizeX / 2 - 10, GameScreenView.gamesizeY / 2 - 10, 20, 20);
             score_Player_1 = "0";
             score_Player_2 = "0";
             GameScreenView.Refresh();
@@ -40,10 +40,10 @@ namespace Game
             GameScreenView.gameModel = this;
             this.client = client;
 
-            modelTimer = new System.Timers.Timer(10);
+            modelTimer = new System.Timers.Timer(100);
             modelTimer.Elapsed += onTimedEvent;
 
-            connectionTimer = new System.Timers.Timer(50);
+            connectionTimer = new System.Timers.Timer(100);
             connectionTimer.Elapsed += onConnectionEvent;
             Thread task = new Thread(new ThreadStart(handleConnection));
             task.Start();
@@ -62,13 +62,14 @@ namespace Game
 
         private void onTimedEvent(object obj, ElapsedEventArgs e)
         {
-            player_1.Y = Cursor.Position.Y - (player_1.Height / 2);
+            if (Cursor.Position.Y < 768)
+                player_1.Y = Cursor.Position.Y - (player_1.Height / 2);
+            else
+                player_1.Y = 768;
         }
 
         public void handleConnection()
         {
-
-
             while (true)
             {
                 string response = DataHandler.readData(client);
@@ -100,7 +101,7 @@ namespace Game
             }
         }
 
-        
+
 
     }
 }
