@@ -39,25 +39,25 @@
             this.field.Dock = System.Windows.Forms.DockStyle.Fill;
             this.field.ForeColor = System.Drawing.Color.White;
             this.field.Location = new System.Drawing.Point(0, 0);
-            this.field.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.field.Margin = new System.Windows.Forms.Padding(2);
             this.field.Name = "field";
-            this.field.Size = new System.Drawing.Size(891, 523);
+            this.field.Size = new System.Drawing.Size(1008, 729);
             this.field.TabIndex = 0;
             this.field.Paint += new System.Windows.Forms.PaintEventHandler(this.field_Paint);
             // 
             // viewTimer
             // 
-            this.viewTimer.Interval = 20;
+            this.viewTimer.Interval = 17;
             this.viewTimer.Tick += new System.EventHandler(this.viewTimer_Tick);
             // 
             // GameScreenView
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(891, 523);
+            this.ClientSize = new System.Drawing.Size(1008, 729);
             this.Controls.Add(this.field);
             this.DoubleBuffered = true;
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "GameScreenView";
             this.Text = "Ping";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.GameScreenView_KeyDown_1);
