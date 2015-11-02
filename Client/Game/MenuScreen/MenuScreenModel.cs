@@ -16,12 +16,8 @@ namespace Game.MainMenuGame
         public TcpClient client;
         public bool done;
 
-        [System.Runtime.InteropServices.DllImport("kernel32.dll")]
-        private static extern bool AllocConsole();
-
         public MainMenuModel(MenuScreenView form)
         {
-            AllocConsole();
             this.form = form;
             new Thread(connectToServer).Start();    //try to connect to server
         }
@@ -41,22 +37,15 @@ namespace Game.MainMenuGame
 
             do { client = new TcpClient("127.0.0.1", 1338); }
             while (!client.Connected);
-            //connectionToServer.StartConnection(client);
-            //connectionToServer.menuModel = this;
             Thread taskMenu = new Thread(new ThreadStart(handleConnection));
             taskMenu.Start();
-
-
 
             if (form.ConnectionStatusLabel.InvokeRequired)
             {
                 Action act = () => form.ConnectionStatusLabel.Text = "Connected to Server";
                 form.ConnectionStatusLabel.Invoke(act);
             }
-            else
-            {
-                form.ConnectionStatusLabel.Text = "Connected to Server";
-            }
+            else form.ConnectionStatusLabel.Text = "Connected to Server";
         }
 
         private void handleConnection()
@@ -64,8 +53,6 @@ namespace Game.MainMenuGame
             done = false;
             while (!done)
             {
-
-
                 string response = DataHandler.ReadString(client);
                 Console.WriteLine(response);
                 string code = response.Substring(0, 2);
@@ -80,30 +67,24 @@ namespace Game.MainMenuGame
                             Action act = () => form.AmountConnectedLabel.Text = param[0] + "/2 players ready";
                             form.AmountConnectedLabel.Invoke(act);
                         }
-                        else
-                        {
-                            form.AmountConnectedLabel.Text = param[0] + "/2 players ready";
-                        }
+                        else form.AmountConnectedLabel.Text = param[0] + "/2 players ready";
+
 
                         if (form.gameButton.InvokeRequired)
                         {
                             Action act = () => form.gameButton.Enabled = true;
                             form.gameButton.Invoke(act);
                         }
-                        else
-                        {
-                            form.gameButton.Enabled = true;
-                        }
+                        else form.gameButton.Enabled = true;
+
 
                         if (form.gameButton.InvokeRequired)
                         {
                             Action act = () => form.gameButton.Text = "Start game";
                             form.gameButton.Invoke(act);
                         }
-                        else
-                        {
-                            form.gameButton.Text = "Start game";
-                        }
+                        else form.gameButton.Text = "Start game";
+
                         break;
                     case "04":  //start the game
                         gameModel gameModel = new gameModel(new GameScreenView(), client);
@@ -115,25 +96,19 @@ namespace Game.MainMenuGame
                             form.Invoke(hide);
                             form.Invoke(close);
                         }
-                        else
-                        {
-                            form.Hide();
-                        }
+                        else form.Hide();
+
                         if (gameModel.GameScreenView.InvokeRequired)
                         {
                             Action sho = () => gameModel.GameScreenView.Show();
                             gameModel.GameScreenView.Invoke(sho);
                         }
-                        else
-                        {
-                            gameModel.GameScreenView.Show();
-                        }
+                        else gameModel.GameScreenView.Show();
 
                         done = true;
                         gameModel.startTimers();
                         Application.Run(gameModel.GameScreenView);
                         break;
-
                 }
             }
         }

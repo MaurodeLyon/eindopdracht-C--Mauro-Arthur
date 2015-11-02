@@ -76,30 +76,11 @@ namespace Server
                             }
                         }
                         done = true;
-                        
                         break;
-                    //case "04": //START GAME
-                    //    data = data.Replace("04", "");
-                    //    param = data.Split(':');
-                    //    foreach (Room room in gamedata.rooms)
-                    //    {
-                    //        if (room.roomname == param[0])
-                    //        {
-                    //            Console.WriteLine("starting game" + room.roomname);
-                    //            room.startGame();
-                    //        }
-                    //    }
-                    //    done = true;
-                    //    break;
                     case "07":
-                        Console.WriteLine("laoding");
                         List<String> contents = FileIO.read();
-
-                        Console.WriteLine(contents[0]);
-                        foreach(String e in contents)
-                        {
-                            DataHandler.SendString(client, "07"+ e);
-                        }
+                        foreach (String e in contents)
+                            DataHandler.SendString(client, "07" + e);
                         DataHandler.SendString(client, "07 END");
                         break;
                 }

@@ -55,15 +55,5 @@ namespace Library
             new BinaryFormatter().Serialize(client.GetStream(), list);
         }
 
-        //public static string readData(TcpClient client)
-        //{
-        //    String e = "";
-        //    using (StreamReader sr = new StreamReader( client.GetStream()))
-        //    {
-        //        e = sr.ReadLine();
-        //    }
-        //    return e;
-        //}
-
     }
 }

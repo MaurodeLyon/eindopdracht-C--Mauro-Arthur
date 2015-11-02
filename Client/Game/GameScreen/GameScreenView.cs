@@ -19,6 +19,7 @@ namespace Game
         public int gamesizeY = 768;
         private float scaleX;
         private float scaleY;
+
         public GameScreenView()
         {
             InitializeComponent();

@@ -14,40 +14,31 @@ namespace Game.ScoreBoardScreen
         private TcpClient client;
         public ScoreboardView view;
 
-        public ScoreboardModel(ScoreboardView view,TcpClient client)
+        public ScoreboardModel(ScoreboardView view, TcpClient client)
         {
             this.view = view;
             this.client = client;
-            
+
             Thread task = new Thread(new ThreadStart(handleConnection));
             task.Start();
-
         }
 
         public void handleConnection()
         {
-            DataHandler.SendString(client,"07");
-
-
+            DataHandler.SendString(client, "07");
             bool done = false;
-
             List<String> temp = new List<String>();
-            while(!done)
+            while (!done)
             {
                 String response = DataHandler.ReadString(client);
-                //Console.WriteLine(response);
-                if(response.Contains("END"))
-                {
+                if (response.Contains("END"))
                     done = true;
-                    
-                }
 
-                if(response.Substring(0,2) == "07" && !response.Contains("END"))
+
+                if (response.Substring(0, 2) == "07" && !response.Contains("END"))
                 {
                     response = response.Replace("07", "");
-
                     temp.Add(response);
-                    //Console.WriteLine(response);
                 }
             }
             view.appendText("-------------------------");
@@ -56,16 +47,6 @@ namespace Game.ScoreBoardScreen
                 Console.WriteLine(e);
                 view.appendText(e);
             }
-           //String[] data = DataHandler.readList(client);
-
-
-            //foreach(string e in data)
-            //{
-            //    view.appendText(e);
-            //}
-
-
         }
-
     }
 }

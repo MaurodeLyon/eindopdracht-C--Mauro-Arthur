@@ -131,21 +131,15 @@ namespace Server
                 Console.WriteLine(command.Substring(0, 2));
 
                 if (command.Substring(0, 2) == "04")
-                {
-                    //DataHandler.writeData(clients[0].client, "04");
-                    //DataHandler.writeData(clients[1].client, "04");
-                    //starting = true;
                     p1R = true;
-                }
 
                 string command2 = DataHandler.ReadString(clients[1].client);
 
                 Console.WriteLine(command2);
                 Console.WriteLine(command2.Substring(0, 2));
                 if (command2.Substring(0, 2) == "04")
-                {
                     p2R = true;
-                }
+
 
                 if (p1R == true && p2R == true)
                 {
@@ -189,13 +183,6 @@ namespace Server
                     int.TryParse(p2, out y);
                     player_2.Y = y;
                 }
-                //send ball,position other player and score to client 1
-                // DataHandler.writeData(client_1.client, $"05 {ball.X}:{ball.Y}:{player_2.X}:{player_2.Y}:{score_Player_1}:{score_Player_2}");
-                //send ball,position other player and score to client 2
-                //DataHandler.writeData(client_2.client, $"05 {ball.X}:{ball.Y}:{player_1.X}:{player_1.Y}:{score_Player_2}:{score_Player_1}");
-                //Console.WriteLine($"05 {ball.X}:{ball.Y}:{player_2.X}:{player_2.Y}:{score_Player_1}:{score_Player_2}");
-                //send ball,position other player and score to client 2
-                // Console.WriteLine($"05 {ball.X}:{ball.Y}:{player_1.X}:{player_1.Y}:{score_Player_2}:{score_Player_1}");
             }
         }
 

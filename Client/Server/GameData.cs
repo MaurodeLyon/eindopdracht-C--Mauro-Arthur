@@ -23,10 +23,7 @@ namespace Server
             foreach (Room e in rooms)
             {
                 if (e.roomname == roomName)
-                {
-                    //Add new gameClient to room
                     e.clients.Add(new GameClient(username, client));
-                }
             }
         }
     }

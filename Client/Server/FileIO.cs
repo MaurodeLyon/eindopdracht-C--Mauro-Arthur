@@ -18,7 +18,6 @@ namespace Server
             {
                 w.WriteLine(d);
             }
-
         }
 
         public static List<String> read()
@@ -30,7 +29,6 @@ namespace Server
                 string current;
                 while ((current = r.ReadLine()) != null)
                 {
-
                     temp.Add(current);
                 }
             }
