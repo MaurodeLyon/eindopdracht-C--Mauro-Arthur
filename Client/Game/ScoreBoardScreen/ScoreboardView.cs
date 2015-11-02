@@ -21,5 +21,9 @@ namespace Game.ScoreBoardScreen
         {
 
         }
-    }
+
+        public void appendText(String d)
+        {
+            richTextBox1.Invoke((MethodInvoker)(() =>richTextBox1.AppendText(d + Environment.NewLine )));        }
+        }
 }

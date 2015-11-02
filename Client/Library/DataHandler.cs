@@ -22,6 +22,18 @@ namespace Library
             }
         }
 
+        //public static void writeList(TcpClient client, String[] list)
+        //{
+        //    new BinaryFormatter().Serialize(client.GetStream(), list);
+            
+        //}
+
+        //public static String[] readList(TcpClient client)
+        //{
+        //    string[] lines = (string[])new BinaryFormatter().Deserialize(client.GetStream());
+        //    return lines;
+        //}
+
         public static string readData(TcpClient client)
         {
             string[] lines = (string[])new BinaryFormatter().Deserialize(client.GetStream());
