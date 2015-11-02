@@ -67,7 +67,7 @@ namespace Game.MainMenuGame
             {
 
 
-                string response = DataHandler.readData(client);
+                string response = DataHandler.ReadString(client);
                 Console.WriteLine(response);
                 string code = response.Substring(0, 2);
                 response = response.Replace(code, "");

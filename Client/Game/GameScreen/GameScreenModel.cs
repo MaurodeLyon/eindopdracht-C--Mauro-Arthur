@@ -58,7 +58,7 @@ namespace Game
 
         private void onConnectionEvent(object sender, ElapsedEventArgs e)
         {
-            DataHandler.writeData(client, "05" + player_1.Y);
+            DataHandler.SendString(client, "05" + player_1.Y);
         }
 
         private void onTimedEvent(object obj, ElapsedEventArgs e)
@@ -73,7 +73,7 @@ namespace Game
         {
             while (true)
             {
-                string response = DataHandler.readData(client);
+                string response = DataHandler.ReadString(client);
                 Console.WriteLine(response);
                 string code = response.Substring(0, 2);
 
