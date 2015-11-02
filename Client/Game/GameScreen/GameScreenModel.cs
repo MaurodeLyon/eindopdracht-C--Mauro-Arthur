@@ -41,10 +41,10 @@ namespace Game
             GameScreenView.gameModel = this;
             this.client = client;
 
-            modelTimer = new System.Timers.Timer(100);
+            modelTimer = new System.Timers.Timer(5);
             modelTimer.Elapsed += onTimedEvent;
 
-            connectionTimer = new System.Timers.Timer(100);
+            connectionTimer = new System.Timers.Timer(5);
             connectionTimer.Elapsed += onConnectionEvent;
             Thread task = new Thread(new ThreadStart(handleConnection));
             task.Start();
