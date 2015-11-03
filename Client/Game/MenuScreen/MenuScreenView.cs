@@ -35,12 +35,13 @@ namespace Game.MainMenuGame
         private void gameButton_Click(object sender, EventArgs e)
         {
             DataHandler.SendString(model.client, "04" + roomname);
+            gameButton.Enabled = false;
         }
 
         private void scoreboardButton_Click(object sender, EventArgs e)
         {
             // insert score screen
-            ScoreboardModel model2 = new ScoreboardModel(new ScoreboardView(),model.client);
+            ScoreboardModel model2 = new ScoreboardModel(new ScoreboardView(), model.client);
             model.done = true;
             model2.view.ShowDialog();
         }

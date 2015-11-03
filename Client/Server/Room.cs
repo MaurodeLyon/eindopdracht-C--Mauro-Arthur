@@ -110,18 +110,22 @@ namespace Server
             {
                 //end game
                 FileIO.save(clients[0].username + "-" + clients[1].username + ":" + score_Player_1 + " - " + score_Player_2);
+                done = true;
                 modelTimer.Stop();
                 connectionTimer.Stop();
                 new Thread(sendEnd).Start();
+                t1.Abort();
+                t2.Abort();
             }
         }
         string p1, p2;
         Thread t1;
         Thread t2;
-
+        bool done;
         public void handleGame()
         {
             bool starting = false;
+            done = false;
             Console.WriteLine("Starting games on client");
             while (!starting)
             {
@@ -133,13 +137,14 @@ namespace Server
                 if (command.Substring(0, 2) == "04")
                     p1R = true;
 
-                string command2 = DataHandler.ReadString(clients[1].client);
-
-                Console.WriteLine(command2);
-                Console.WriteLine(command2.Substring(0, 2));
-                if (command2.Substring(0, 2) == "04")
-                    p2R = true;
-
+                if (clients.Count > 1)
+                {
+                    string command2 = DataHandler.ReadString(clients[1].client);
+                    Console.WriteLine(command2);
+                    Console.WriteLine(command2.Substring(0, 2));
+                    if (command2.Substring(0, 2) == "04")
+                        p2R = true;
+                }
 
                 if (p1R == true && p2R == true)
                 {
@@ -151,7 +156,6 @@ namespace Server
                 }
             }
 
-            bool done = false;
             Console.WriteLine("starting game on server");
 
             //HANDLE UPDATING AND SENDING INFORMATION
