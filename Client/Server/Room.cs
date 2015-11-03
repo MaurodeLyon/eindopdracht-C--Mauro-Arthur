@@ -26,8 +26,8 @@ namespace Server
 
         private int ball_horizontal_speed = 4;
         private int ball_vertical_speed = 4;
-        public int score_Player_1 = 5;
-        public int score_Player_2 = 5;
+        public int score_Player_1 = 0;
+        public int score_Player_2 = 0;
 
         private System.Timers.Timer modelTimer;
         private System.Timers.Timer connectionTimer;
